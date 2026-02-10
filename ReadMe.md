@@ -1,5 +1,6 @@
-Organic Shop Repo Project Structure
+# Organic Shop Repo Project Structure
 
+```
 project-root/
 ├─ pages/
 │  ├─ auth/
@@ -60,3 +61,4 @@ project-root/
 │  └─ main.js                   (shared bootstrapping)
 │
 └─ index.html                   (optional: redirect/landing)
+```
