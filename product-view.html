@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product View</title>
+    <link rel="stylesheet" href="css/product-view.css">
+    <!-- Bootstrap Icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="assets/img/beta_logo.jpg" alt="Dashboard Logo" class="dashboard-logo">
+                <p>Let’s order fresh items for you.</p> <!--this is beta-->
+            </div>
+
+            <!-- <div class="link-container">
+                <a href="#" class="signup-link">SIGN UP</a>
+                <a href="#" class="login-link">LOGIN</a>
+            </div> -->
+
+            <!-- After the user's logged in -->
+            <div class="user-container">
+                <div class="dropdown">
+                    <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
+
+                    <div class="dropdown-content" id="dropdownMenu">
+                        <a href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </nav>
+    </header>
+
+    <aside>
+        <ul>
+            <li><img src="assets/img/beta_logo.jpg" alt="Dashboard Logo" class="official-logo"></li>
+            <li></li>
+        </ul>
+    </aside>
+
+    <section class="search-container">
+        <form action="">
+            <input type="text" placeholder="Search for products..." class="search-bar">
+        </form>
+
+        <button><i class="bi bi-cart4"></i> Cart</button>
+    </section>
+
+    <main>
+        <a href="dashboard.html" class="return-link">Go Back</a>
+        <section class="product-container">
+            <div class="product-image">
+                <img src="assets/img/beta_logo.jpg" alt="Main Image" class="main-image">
+                <div class="sub-container">
+                    <img src="assets/img/beta_logo.jpg" alt="Sub Image 1" class="sub-image">
+                    <img src="assets/img/beta_logo.jpg" alt="Sub Image 2" class="sub-image">
+                    <img src="assets/img/beta_logo.jpg" alt="Sub Image 3" class="sub-image">
+                </div>
+            </div>
+
+            <div class="product-description">
+                <div class="product-content">
+                    <h3>Product Name</h3>
+                    <p>5 stars • 999+ Ratings</p>
+                    <h4 class="price-tag">$9999</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur. Eget sit posuere enim
+                        facilisi. Pretium orci venenatis habitasse gravida nulla tincidunt iaculis. Aliquet at massa
+                        quisque libero viverra ut sed. Est vulputate est rutrum nunc nunc pellentesque ultrices
+                        pharetra. Mauris euismod sed vel quisque tincidunt suspendisse sed turpis volutpat. .
+                    </p>
+                </div>
+                <div class="purchase-function">
+                    <div class="quantity-container">
+                        <button type="button" onclick="changeQty(-1)">-</button>
+                        <input type="number" id="qty" value="1" min="1">
+                        <button type="button" onclick="changeQty(1)">+</button>
+                    </div>
+
+                    <p class="total-amount">Total: $<span id="totalPrice">9999</span></p>
+
+                    <button type="button" class="add-cart">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="similar-items">
+            <h2>Similar Items</h2>
+            <div class="product-grid">
+                <!-- Copy this to make new -->
+                <a href="product-view.html" class="product-card">
+                    <div class="product-thumb">
+                        <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
+                    </div>
+
+                    <div class="product-info">
+                        <div class="info-left">
+                            <h3 class="product-name">Product Name</h3>
+                            <p class="product-meta">4 stars • 36 Ratings</p>
+                        </div>
+
+                        <p class="product-price">$10</p>
+                    </div>
+                </a>
+
+                <!-- Copy this to make new -->
+                <a href="product-view.html" class="product-card">
+                    <div class="product-thumb">
+                        <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
+                    </div>
+
+                    <div class="product-info">
+                        <div class="info-left">
+                            <h3 class="product-name">Product Name</h3>
+                            <p class="product-meta">4 stars • 36 Ratings</p>
+                        </div>
+
+                        <p class="product-price">$10</p>
+                    </div>
+                </a>
+
+                <!-- Copy this to make new -->
+                <a href="product-view.html" class="product-card">
+                    <div class="product-thumb">
+                        <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
+                    </div>
+
+                    <div class="product-info">
+                        <div class="info-left">
+                            <h3 class="product-name">Product Name</h3>
+                            <p class="product-meta">4 stars • 36 Ratings</p>
+                        </div>
+
+                        <p class="product-price">$10</p>
+                    </div>
+                </a>
+
+                <!-- Copy this to make new -->
+                <a href="product-view.html" class="product-card">
+                    <div class="product-thumb">
+                        <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
+                    </div>
+
+                    <div class="product-info">
+                        <div class="info-left">
+                            <h3 class="product-name">Product Name</h3>
+                            <p class="product-meta">4 stars • 36 Ratings</p>
+                        </div>
+
+                        <p class="product-price">$10</p>
+                    </div>
+                </a>
+
+                <!-- Copy this to make new -->
+                <a href="product-view.html" class="product-card">
+                    <div class="product-thumb">
+                        <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
+                    </div>
+
+                    <div class="product-info">
+                        <div class="info-left">
+                            <h3 class="product-name">Product Name</h3>
+                            <p class="product-meta">4 stars • 36 Ratings</p>
+                        </div>
+
+                        <p class="product-price">$10</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/product-view.js"></script>
+</body>
+
+</html>
