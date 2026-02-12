@@ -2,21 +2,36 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translate(-50%, -30%);
+    transition: 0.45s cubic-bezier(.17, .67, .38, 1.46);
+
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     z-index: 1000;
+    width: 50%;
 }
+
+#signup-modal-container.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: translate(-50%, -50%);
+}
+
 
 #signup-container {
     display: flex;
     position: relative;
-    max-width: 600px;
     border: 1px solid #a0a0a0;
     border-radius: 8px;
-    padding: 20px;
     gap: 30px;
     margin: auto;
 }
@@ -53,7 +68,6 @@
 #signup-container>div form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
 #signup-container>div form .row {
@@ -68,7 +82,6 @@
 #signup-container>div form .column {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
 
 #signup-container>div form>div>div {
@@ -79,4 +92,89 @@
 
 #signup-container>div form button {
     align-self: center;
+    padding: 10px 30px;
+    border: none;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+img.side-image-sign,
+.brand-logo {
+    border: 1px solid red;
+}
+
+img.side-image-sign{
+    width: 25%;
+    object-fit: cover;
+    border-radius: 0 5px 5px 0;
+}
+
+.brand-logo {
+    width: 80px;
+}
+
+.signup-information {
+    padding: 40px;
+    width: 70%;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 96%;
+    padding: 16px 10px;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 5px;
+    outline: none;
+}
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #777;
+    pointer-events: none;
+    transition: 0.3s ease;
+    background: white;
+    padding: 0 5px;
+}
+
+.input-group input:focus+label,
+.input-group input:valid+label {
+    top: -4px;
+    font-size: 13px;
+    color: black;
+}
+
+.underline {
+    margin: 1em 0;
+    border: 1px solid rgb(222, 222, 222);
+}
+
+.signup-text {
+    display: flex;
+    align-items: center;
+}
+
+.signup-text h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.signup-text button {
+    border: none;
+    background: none;
+    font-size: 16px;
+}
+
+input#last-name,
+input#first-name {
+    width: 92%;
 }

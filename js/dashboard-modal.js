@@ -7,46 +7,95 @@ const loginBtn = document.querySelector('.login-link');
 
 const closeButtons = document.querySelectorAll('.close-btn');
 
+
 /*  
- * DOCU: Hides all modal windows and removes the modal-open class from body
- * @returns {void}
+ * DOCU: Hides all modal windows and removes the modal-open class from body.
+ * @param {void} paramName - No parameters.
+ * @returns {void} - Does not return anything.
+ * @throws {None} - No exceptions.
  *  
- * Last Updated: 2026-02-11 
+ * Last Updated: 2026-02-12  
  * Author: Allan Banzuela  
- * Last Updated By: Allan Banzuela
+ * Last Updated By: Jheanne A. Salan  
  */
 function hideModals() {
-    if (signupModal) {
-        signupModal.style.display = 'none';
-    }
-    if (loginModal) {
-        loginModal.style.display = 'none';
-    }
+    // remove the animation class so modal fades out
+    if (signupModal) signupModal.classList.remove('show');
+    if (loginModal) loginModal.classList.remove('show');
+
+    // remove blur + scrolling lock
     document.body.classList.remove('modal-open');
 }
 
-// Hide both modals on initial load
-hideModals();
 
-// Show signup modal when SIGN UP is clicked
-signupBtn.addEventListener('click', function () {
-    hideModals();
+/*  
+ * DOCU: Shows the signup modal with animation when user clicks SIGN UP.
+ * @param {Event} e - The click event from the SIGN UP link/button.
+ * @returns {void} - Does not return anything.
+ * @throws {None} - No exceptions.
+ *  
+ * Last Updated: 2026-02-12  
+ * Author: Jheanne A. Salan  
+ * Last Updated By: Jheanne A. Salan  
+ */
+function showSignupModal(e) {
+    e.preventDefault(); // so it will not jump to top because of href="#"
+
+    hideModals(); // close others first
+
     if (signupModal) {
-        signupModal.style.display = 'flex';
+        signupModal.classList.add('show'); // triggers CSS animation
         document.body.classList.add('modal-open');
     }
-});
+}
 
-// Show login modal when LOGIN is clicked
-loginBtn.addEventListener('click', function () {
+
+/*  
+ * DOCU: Shows the login modal with animation when user clicks LOGIN.
+ * @param {Event} e - The click event from the LOGIN link/button.
+ * @returns {void} - Does not return anything.
+ * @throws {None} - No exceptions.
+ *  
+ * Last Updated: 2026-02-12  
+ * Author: Jheanne A. Salan  
+ * Last Updated By: Jheanne A. Salan  
+ */
+function showLoginModal(e) {
+    e.preventDefault();
+
     hideModals();
+
     if (loginModal) {
-        loginModal.style.display = 'flex';
+        loginModal.classList.add('show');
         document.body.classList.add('modal-open');
     }
-});
+}
 
-// Hide modals when any close button is clicked
-closeButtons.forEach(function (btn) {
-    btn.addEventListener('click', hideModals);
-});
+
+/*  
+ * DOCU: Sets up the button clicks for opening and closing modals.
+ * @param {void} paramName - No parameters.
+ * @returns {void} - Does not return anything.
+ * @throws {None} - No exceptions.
+ *  
+ * Last Updated: 2026-02-12  
+ * Author: Jheanne A. Salan  
+ * Last Updated By: Jheanne A. Salan  
+ */
+function initializeModalEvents() {
+    // make sure modals are hidden when page loads
+    hideModals();
+
+    // open modals
+    if (signupBtn) signupBtn.addEventListener('click', showSignupModal);
+    if (loginBtn) loginBtn.addEventListener('click', showLoginModal);
+
+    // close modals when user clicks X button
+    closeButtons.forEach(function (btn) {
+        btn.addEventListener('click', hideModals);
+    });
+}
+
+
+// Run the setup
+initializeModalEvents();

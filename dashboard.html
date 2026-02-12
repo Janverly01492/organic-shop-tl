@@ -158,70 +158,77 @@
     <div id="signup-modal-container">
         <div id="signup-container">
             <button class="close-btn" type="button">&times;</button>
-            <div>
-                <img src="" alt="Brand logo">
-                <div>
-                    <h2>Sign up to order.</h2>
+            <div class="signup-information">
+                <img src="assets/img/beta_logo.jpg" alt="Brand logo" class="brand-logo">
+                <div class="signup-text">
+                    <h2><i class="bi bi-emoji-smile"> </i>Sign up to order.</h2>
                     <button type="button">Already a member? Log in here.</button>
                 </div>
 
                 <form>
                     <div class="row">
-                        <div>
+                        <div class="input-group">
+                            <input id="first-name" name="first-name" type="text" required>
                             <label for="first-name">First Name</label>
-                            <input id="first-name" name="first-name" type="text" placeholder="First Name" required>
                         </div>
-                        <div>
+                        <div class="input-group">
+                            <input id="last-name" name="last-name" type="text" required>
                             <label for="last-name">Last Name</label>
-                            <input id="last-name" name="last-name" type="text" placeholder="Last Name" required>
                         </div>
                     </div>
 
                     <div class="column">
-                        <div>
+                        <div class="input-group">
+                            <input id="email" name="email" type="email" required>
                             <label for="email">Email</label>
-                            <input id="email" name="email" type="email" placeholder="Email" required>
                         </div>
-                        <div>
+                        <div class="input-group">
+                            <input id="password" name="password" type="password" required>
                             <label for="password">Password</label>
-                            <input id="password" name="password" type="password" placeholder="Password" required>
                         </div>
-                        <div>
+                        <div class="input-group">
+                            <input id="confirm-password" name="confirm-password" type="password" required>
                             <label for="confirm-password">Confirm Password</label>
-                            <input id="confirm-password" name="confirm-password" type="password"
-                                placeholder="Confirm Password" required>
                         </div>
                     </div>
+                    <div class="underline"></div>
 
-                    <button type="submit">Sign up</button>
+                    <button type="submit" >Sign up</button>
                 </form>
             </div>
-            <img src="" alt="Fresh vegetables">
+            <img src="assets/img/beta_logo.jpg" alt="Fresh vegetables" class="side-image-sign">
         </div>
     </div>
+
+
     <div id="login-modal-container">
         <div id="login-container">
             <button class="close-btn" type="button">&times;</button>
-            <div>
-                <img src="" alt="Brand logo">
-                <div>
-                    <h2>Log in to order.</h2>
-                    <button type="button">New member? Register here.</button>
+            <div class="login-information">
+                <img src="assets/img/beta_logo.jpg" alt="Brand logo" class="brand-logo">
+                <div class="login-text">
+                    <h2><i class="bi bi-emoji-smile"></i> Log in to order.</h2>
+                    <button>New member? Register here.</button>
                 </div>
 
                 <form>
-                    <div>
+                    <div class="input-group">
+                        <!-- I need to put the required to make the floating label animation work -->
+                        <input type="email" id="email" name="email" required>
                         <label for="email">Email</label>
-                        <input id="email" name="email" type="email" placeholder="Email" required>
                     </div>
-                    <div>
+
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" required>
                         <label for="password">Password</label>
-                        <input id="password" name="password" type="password" placeholder="Password" required>
                     </div>
+
+                    <div class="underline"></div>
+
                     <button type="submit">Log in</button>
                 </form>
             </div>
-            <img src="" alt="Fresh vegetables">
+            <img src="assets/img/beta_logo.jpg" alt="Fresh vegetables" class="side-image">
         </div>
     </div>
 
