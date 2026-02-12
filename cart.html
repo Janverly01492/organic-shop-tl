@@ -1,79 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout</title>
-</head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#">Let's order fresh items for you.</a></li>
-        <li><a href="#"><img src="img/profile.png" alt="User Profile"></a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main>
-    <section class="search-cart">
-      <div class="search-box">
-        <input type="search" placeholder="Search Products" id="searchInput">
-        <img src="img/search-icon.webp" alt="Search icon">
-        <img src="img/cart.png" alt="cart icon">
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/modals/check-out.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="assets/img/beta_logo.jpg" alt="Dashboard Logo" class="dashboard-logo">
+                <p>Let’s order fresh items for you.</p> <!--this is beta-->
+            </div>
+
+            <!-- <div class="link-container">
+                <a href="#" class="signup-link">SIGN UP</a>
+                <a href="#" class="login-link">LOGIN</a>
+            </div> -->
+
+            <!-- After the user's logged in -->
+            <div class="user-container">
+                <div class="dropdown">
+                    <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
+
+                    <div class="dropdown-content" id="dropdownMenu">
+                        <a href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <aside>
+        <ul>
+            <li><img src="assets/img/beta_logo.jpg" alt="Dashboard Logo" class="official-logo"></li>
+            <li></li>
+        </ul>
+    </aside>
+
+    <section class="search-container">
+        <form action="">
+            <input type="text" placeholder="Search for products..." class="search-bar">
+        </form>
+
+        <button><i class="bi bi-cart4"></i> Cart</button>
     </section>
 
-    <div class="checkout-layout">
+    <main>
+        <div class="checkout-layout">
+            <section class="cart-items">
+                <h2>Cart Items</h2>
+                <div id="cartContainer"></div>
+            </section>
 
-      <section class="cart-items">
-        <h2>Cart Items</h2>
-        <div id="cartContainer"></div>
-      </section>
+            <div class="shipping-side">
 
-      <div class="shipping-side">
+                <section class="shipping">
+                    <h2>Shipping Information</h2>
+                    <form id="shippingForm">
+                        <div class="form-fill">
+                            <input type="text" name="firstName" placeholder="First Name" required>
+                            <input type="text" name="lastName" placeholder="Last Name" required>
+                        </div>
 
-        <section class="shipping">
-          <h2>Shipping Information</h2>
-          <form id="shippingForm">
-            <div class="form-fill">
-              <input type="text" name="firstName" placeholder="First Name" required>
-              <input type="text" name="lastName" placeholder="Last Name" required>
+                        <input type="text" name="address1" placeholder="Address" required>
+                        <input type="text" name="address2" placeholder="Address 2 (Optional)">
+
+                        <div class="form-fill">
+                            <input type="text" name="city" placeholder="City" required>
+                            <input type="text" name="state" placeholder="State" required>
+                            <input type="text" name="zip" placeholder="Zip Code" required>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="order-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-row">
+                        <span>Item Count</span>
+                        <span id="itemCount">0</span>
+                    </div>
+
+                    <div class="summary-part">
+                        <span>Shipping Fee</span>
+                        <span id="shippingFee">₱0.00</span>
+                    </div>
+
+                    <div class="summary-part total">
+                        <span>Total Amount</span>
+                        <span id="totalAmount">₱0.00</span>
+                    </div>
+
+                    <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+                </section>
+
             </div>
+        </div>
+    </main>
 
-            <input type="text" name="address1" placeholder="Address" required>
-            <input type="text" name="address2" placeholder="Address 2 (Optional)">
-
-            <div class="form-fill">
-              <input type="text" name="city" placeholder="City" required>
-              <input type="text" name="state" placeholder="State" required>
-              <input type="text" name="zip" placeholder="Zip Code" required>
+    <!-- modals -->
+    <div id="check-out-modal-container">
+        <div id="check-out-container">
+            <button class="close-btn" type="button">&times;</button>
+            <div>
+                <img src="" alt="Brand logo">
+                <img src="" alt="Visa and Mastercard logo">
             </div>
-          </form>
-        </section>
-
-        <section class="order-summary">
-          <h2>Order Summary</h2>
-          <div class="summary-row">
-            <span>Item Count</span>
-            <span id="itemCount">0</span>
-          </div>
-
-          <div class="summary-part">
-            <span>Shipping Fee</span>
-            <span id="shippingFee">₱0.00</span>
-          </div>
-
-          <div class="summary-part total">
-            <span>Total Amount</span>
-            <span id="totalAmount">₱0.00</span>
-          </div>
-
-          <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
-        </section>
-
-      </div>
+            <form>
+                <span>Card Details</span>
+                <div class="column">
+                    <div>
+                        <label for="card-name">Card Name</label>
+                        <input id="card-name" name="card-name" type="text" placeholder="Card Name" required>
+                    </div>
+                    <div>
+                        <label for="card-number">Card Number</label>
+                        <input id="card-number" name="card-number" type="text" placeholder="Card Number" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label for="expiration">Expiration</label>
+                        <input id="expiration" name="expiration" type="text" placeholder="MM/YY" required>
+                    </div>
+                    <div>
+                        <label for="cvc">CVC</label>
+                        <input id="cvc" name="cvc" type="text" placeholder="CVC" required>
+                    </div>
+                </div>
+                <div class="total">
+                    <span>Total Amount:</span>
+                    <span>$100</span>
+                </div>
+                <button type="submit">Pay</button>
+            </form>
+        </div>
     </div>
-  </main>
+
+    <script src="js/cart-modal.js"></script>
 </body>
+
 </html>
