@@ -6,102 +6,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
 
+    <link rel="stylesheet" href="css/shared-components.css">
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/modals/check-out.css">
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="logo-container">
-                <img src="assets/img/beta_logo.jpg" alt="Dashboard Logo" class="dashboard-logo">
-                <p>Let’s order fresh items for you.</p> <!--this is beta-->
-            </div>
-
-            <!-- <div class="link-container">
-                <a href="#" class="signup-link">SIGN UP</a>
-                <a href="#" class="login-link">LOGIN</a>
-            </div> -->
-
-            <!-- After the user's logged in -->
-            <div class="user-container">
-                <div class="dropdown">
-                    <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
-
-                    <div class="dropdown-content" id="dropdownMenu">
-                        <a href="#">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
-
     <aside>
         <ul>
             <li><img src="assets/img/beta_logo.jpg" alt="Dashboard Logo" class="official-logo"></li>
-            <li></li>
         </ul>
     </aside>
 
-    <section class="search-container">
-        <form action="">
-            <input type="text" placeholder="Search for products..." class="search-bar">
-        </form>
+    <div class="page-content">
+        <header>
+            <nav>
+                <div class="logo-container">
+                    <img src="assets/img/beta_logo.jpg" alt="Dashboard Logo" class="dashboard-logo">
+                    <p>Let's order fresh items for you.</p> <!--this is beta-->
+                </div>
 
-        <button><i class="bi bi-cart4"></i> Cart</button>
-    </section>
+                <!-- <div class="link-container">
+                    <button type="button" class="signup-link">SIGN UP</button>
+                    <button type="button" class="login-link">LOGIN</button>
+                </div> -->
 
-    <main>
-        <div class="checkout-layout">
-            <section class="cart-items">
-                <h2>Cart Items</h2>
-                <div id="cartContainer"></div>
-            </section>
+                <!-- After the user's logged in -->
+                <div class="user-container">
+                    <div class="dropdown">
+                        <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
 
-            <div class="shipping-side">
-
-                <section class="shipping">
-                    <h2>Shipping Information</h2>
-                    <form id="shippingForm">
-                        <div class="form-fill">
-                            <input type="text" name="firstName" placeholder="First Name" required>
-                            <input type="text" name="lastName" placeholder="Last Name" required>
+                        <div class="dropdown-content" id="dropdownMenu">
+                            <button type="button">Logout</button>
                         </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
 
-                        <input type="text" name="address1" placeholder="Address" required>
-                        <input type="text" name="address2" placeholder="Address 2 (Optional)">
+        <section class="search-container">
+            <form action="">
+                <input type="text" placeholder="Search for products..." class="search-bar">
+            </form>
 
-                        <div class="form-fill">
-                            <input type="text" name="city" placeholder="City" required>
-                            <input type="text" name="state" placeholder="State" required>
-                            <input type="text" name="zip" placeholder="Zip Code" required>
-                        </div>
-                    </form>
+            <button type="button"><i class="bi bi-cart4"></i> Cart</button>
+        </section>
+
+        <main>
+            <div class="checkout-layout">
+                <section class="cart-items">
+                    <h2>Cart Items</h2>
+                    <div id="cartContainer"></div>
                 </section>
 
-                <section class="order-summary">
-                    <h2>Order Summary</h2>
-                    <div class="summary-row">
-                        <span>Item Count</span>
-                        <span id="itemCount">0</span>
-                    </div>
+                <div class="shipping-side">
 
-                    <div class="summary-part">
-                        <span>Shipping Fee</span>
-                        <span id="shippingFee">₱0.00</span>
-                    </div>
+                    <section class="shipping">
+                        <h2>Shipping Information</h2>
+                        <form id="shippingForm">
+                            <div class="form-fill">
+                                <input type="text" name="firstName" placeholder="First Name" required>
+                                <input type="text" name="lastName" placeholder="Last Name" required>
+                            </div>
 
-                    <div class="summary-part total">
-                        <span>Total Amount</span>
-                        <span id="totalAmount">₱0.00</span>
-                    </div>
+                            <input type="text" name="address1" placeholder="Address" required>
+                            <input type="text" name="address2" placeholder="Address 2 (Optional)">
 
-                    <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
-                </section>
+                            <div class="form-fill">
+                                <input type="text" name="city" placeholder="City" required>
+                                <input type="text" name="state" placeholder="State" required>
+                                <input type="text" name="zip" placeholder="Zip Code" required>
+                            </div>
+                        </form>
+                    </section>
 
+                    <section class="order-summary">
+                        <h2>Order Summary</h2>
+                        <div class="summary-row">
+                            <span>Item Count</span>
+                            <span id="itemCount">0</span>
+                        </div>
+
+                        <div class="summary-part">
+                            <span>Shipping Fee</span>
+                            <span id="shippingFee">₱0.00</span>
+                        </div>
+
+                        <div class="summary-part total">
+                            <span>Total Amount</span>
+                            <span id="totalAmount">₱0.00</span>
+                        </div>
+
+                        <button type="button" class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+                    </section>
+
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <!-- modals -->
     <div id="check-out-modal-container">
