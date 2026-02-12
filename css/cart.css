@@ -1,3 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #F3F8FD;
+}
+
 /* Prevent scrolling when a modal is open */
 body.modal-open {
     overflow: hidden;
@@ -7,4 +16,139 @@ body.modal-open {
 body.modal-open> :not(#check-out-modal-container) {
     filter: blur(3px);
     transition: filter 0.2s ease;
+}
+
+/*-------------------------------- Navigation and Aside Style ------------------------------------- */
+header,
+nav,
+aside,
+main,
+.logo-container,
+.user-container,
+.link-container,
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+nav {
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 6em;
+    padding: 15px 20px 15px 2em;
+    background-color: white;
+}
+
+.dashboard-logo,
+.user-profile {
+    width: 50px;
+    border-radius: 50%;
+    margin: 0 20px;
+}
+
+.signup-link,
+.login-link {
+    margin: 5px;
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.login-link {
+    color: white;
+    background-color: black;
+}
+
+aside {
+    position: fixed;
+    top: 0;
+    flex-direction: column;
+    width: 55px;
+    height: 100vh;
+    background-color: #fff;
+    padding: 20px;
+    z-index: -1;
+}
+
+li {
+    list-style: none;
+}
+
+.official-logo {
+    width: 80px;
+    border-radius: 50%;
+}
+
+/*-------------------------------- User Pfp Style------------------------------------- */
+.user-container {
+    position: relative;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar {
+    width: 48px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: white;
+    min-width: 120px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-content a:hover {
+    background-color: #f2f2f2;
+}
+
+/* This class will show the menu */
+.show {
+    display: block;
+}
+
+
+/*-------------------------------- Search Bar and Cart Style------------------------------------- */
+.search-container {
+    margin: 3em 10em 0;
+}
+
+.search-container input {
+    margin-right: 20px;
+    width: 300px;
+    font: 20px;
+    padding: 11px 20px;
+}
+
+.search-container button {
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+/*-------------------------------- Checkout Style ------------------------------------- */
+
+main {
+    margin: 0px 15px 10px 7em;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
 }
