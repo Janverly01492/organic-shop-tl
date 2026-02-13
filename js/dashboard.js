@@ -184,7 +184,7 @@ function renderProducts(products) {
 
     if (productLength) productLength.innerText = `(${products.length})`;
 
-    products.forEach(function(product) {
+    products.forEach(function (product) {
 
         //Create anchor card
         const card = document.createElement("a");

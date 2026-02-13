@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="css/shared-components.css">
-    <link rel="stylesheet" href="css/dashoard.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/modals/signup.css">
     <link rel="stylesheet" href="css/modals/login.css">
 
@@ -30,9 +30,10 @@
     <div class="page-content">
         <header>
             <div>
+                <!-- HIDE THIS WHEN LOGGED IN -->
                 <div class="logo-container">
                     <img src="assets/img/beta_logo.jpg" alt="Dashboard Logo" class="dashboard-logo">
-                    <p>Let's order fresh items for you.</p> <!--this is beta-->
+                    <p>Let's order fresh items for you.</p>
                 </div>
 
                 <div class="link-container">
@@ -40,7 +41,7 @@
                     <button type="button" class="login-link">LOGIN</button>
                 </div>
 
-                <!-- After the user's logged in -->
+                <!-- WILL BE SHOWN BY JS -->
                 <!-- <div class="user-container">
                     <div class="dropdown">
                         <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
@@ -64,49 +65,15 @@
         <main>
             <section class="categories-container">
                 <h4>Categories</h4>
-                <ul>
-                    <li>
+                <ul id="categories-list">
+                    <!-- TEMPLATE TO USE IN JS -->
+                    <!-- <li>
                         <button type="button" class="category-btn">
                             <img src="assets/img/beta_logo.jpg" alt="Category Icon" class="category-icon">
                             <span>Beta</span>
                             <p class="status">999+</p>
                         </button>
-                    </li>
-                    <li>
-                        <button type="button" class="category-btn">
-                            <img src="assets/img/beta_logo.jpg" alt="Category Icon" class="category-icon">
-                            <span>Beta</span>
-                            <p class="status">999+</p>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="category-btn">
-                            <img src="assets/img/beta_logo.jpg" alt="Category Icon" class="category-icon">
-                            <span>Beta</span>
-                            <p class="status">999+</p>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="category-btn">
-                            <img src="assets/img/beta_logo.jpg" alt="Category Icon" class="category-icon">
-                            <span>Beta</span>
-                            <p class="status">999+</p>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="category-btn">
-                            <img src="assets/img/beta_logo.jpg" alt="Category Icon" class="category-icon">
-                            <span>Beta</span>
-                            <p class="status">999+</p>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="category-btn">
-                            <img src="assets/img/beta_logo.jpg" alt="Category Icon" class="category-icon">
-                            <span>Beta</span>
-                            <p class="status">999+</p>
-                        </button>
-                    </li>
+                    </li> -->
                 </ul>
             </section>
 
@@ -114,10 +81,9 @@
                 <div class="product-header">
                     <h4>All Products <span class="count">(36)</span></h4>
                 </div>
-
-                <div class="product-grid">
-                    <!-- Copy this to make new -->
-                    <a href="product-view.html" class="product-card">
+                <div class="product-grid" id="product-grid">
+                    <!-- TEMPLATE TO USE IN JS -->
+                    <!-- <a href="product-view.html" class="product-card">
                         <div class="product-thumb">
                             <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
                         </div>
@@ -130,30 +96,11 @@
 
                             <p class="product-price">$10</p>
                         </div>
-                    </a>
-
-                    <a href="product-view.html" class="product-card">
-                        <div class="product-thumb">
-                            <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
-                        </div>
-
-                        <div class="product-info">
-                            <div class="info-left">
-                                <h3 class="product-name">Product Name</h3>
-                                <p class="product-meta">4 stars • 36 Ratings</p>
-                            </div>
-
-                            <p class="product-price">$10</p>
-                        </div>
-                    </a>
+                    </a> -->
                 </div>
 
-                <div class="pagination">
-                    <button type="button" class="page-btn">&lt;</button>
-                    <button type="button" class="page-btn active">1</button>
-                    <button type="button" class="page-btn">2</button>
-                    <button type="button" class="page-btn">3</button>
-                    <button type="button" class="page-btn">&gt;</button>
+                <div class="pagination" id="pagination">
+                    <!-- WILL BE ON JS -->
                 </div>
             </section>
 
