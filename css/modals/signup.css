@@ -99,12 +99,17 @@
     border-radius: 5px;
 }
 
+#signup-container>div form button:hover {
+    cursor: pointer;
+    background-color: rgb(220, 220, 220);
+}
+
 img.side-image-sign,
 .brand-logo {
     border: 1px solid red;
 }
 
-img.side-image-sign{
+img.side-image-sign {
     width: 25%;
     object-fit: cover;
     border-radius: 0 5px 5px 0;
@@ -172,6 +177,11 @@ img.side-image-sign{
     border: none;
     background: none;
     font-size: 16px;
+}
+
+.signup-text button:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 input#last-name,

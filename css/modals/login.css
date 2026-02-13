@@ -85,6 +85,11 @@
     border-radius: 5px;
 }
 
+#login-container>div form button:hover {
+    cursor: pointer;
+    background-color: rgb(220, 220, 220);
+}
+
 .side-image,
 .brand-logo {
     border: 1px solid red;
@@ -161,3 +166,7 @@
     font-size: 16px;
 }
 
+.login-text button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
