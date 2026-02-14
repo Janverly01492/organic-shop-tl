@@ -35,20 +35,21 @@
                     <p>Let's order fresh items for you.</p> <!--this is beta-->
                 </div>
 
-                <div class="link-container">
+                <div class="link-container" id="auth-links">
                     <button type="button" class="signup-link">SIGN UP</button>
                     <button type="button" class="login-link">LOGIN</button>
                 </div>
 
                 <!-- After the user's logged in -->
-                <!-- <div class="user-container">
+                <div class="user-container" id="user-profile" style="display: none;">
+                    <span id="user-display-name"></span>
                     <div class="dropdown">
                         <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
                         <div class="dropdown-content" id="dropdownMenu">
-                            <button type="button">Logout</button>
+                            <button type="button" id="logout-btn">Logout</button>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </header>
 
@@ -170,15 +171,17 @@
                     <button type="button">Already a member? Log in here.</button>
                 </div>
 
-                <form>
+                <form id="signup-form">
                     <div class="row">
                         <div class="input-group">
                             <input id="first-name" name="first-name" type="text" required>
                             <label for="first-name">First Name</label>
+                            <small class="error"></small>
                         </div>
                         <div class="input-group">
                             <input id="last-name" name="last-name" type="text" required>
                             <label for="last-name">Last Name</label>
+                            <small class="error"></small>
                         </div>
                     </div>
 
@@ -186,14 +189,19 @@
                         <div class="input-group">
                             <input id="email" name="email" type="email" required>
                             <label for="email">Email</label>
+                            <small class="error"></small>
                         </div>
                         <div class="input-group">
                             <input id="password" name="password" type="password" required>
                             <label for="password">Password</label>
+                            <button type="button" class="toggle-password" data-target="password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: inherit;">Show</button>
+                            <small class="error"></small>
                         </div>
                         <div class="input-group">
                             <input id="confirm-password" name="confirm-password" type="password" required>
                             <label for="confirm-password">Confirm Password</label>
+                            <button type="button" class="toggle-password" data-target="confirm-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: inherit;">Show</button>
+                            <small class="error"></small>
                         </div>
                     </div>
                     <div class="underline"></div>
@@ -216,16 +224,19 @@
                     <button>New member? Register here.</button>
                 </div>
 
-                <form>
+                <form id="login-form">
                     <div class="input-group">
                         <!-- I need to put the required to make the floating label animation work -->
-                        <input type="email" id="email" name="email" required>
-                        <label for="email">Email</label>
+                        <input type="email" id="login-email" name="email" required>
+                        <label for="login-email">Email</label>
+                        <small class="error"></small>
                     </div>
 
                     <div class="input-group">
-                        <input type="password" id="password" name="password" required>
-                        <label for="password">Password</label>
+                        <input type="password" id="login-password" name="password" required>
+                        <label for="login-password">Password</label>
+                        <button type="button" class="toggle-password" data-target="login-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: inherit;">Show</button>
+                        <small class="error"></small>
                     </div>
 
                     <div class="underline"></div>
@@ -239,6 +250,7 @@
 
     <script src="js/dashboard-modal.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/input-validation.js"></script>
 </body>
 
 </html>

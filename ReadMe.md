@@ -20,10 +20,11 @@ project-root/
 │   ├── dashboard.js        (General functions)
 │   ├── product-view.js     (General functions)
 │   ├── cart.js             (Cart logic)
-│   └── modal.js            (Open/close modal functions)
+│   ├── modal.js            (Open/close modal functions)
+│   └── input-validation.js (Input validation functions)
 │
 └── assets/
      ├── products/
      └── icons/
-            
+
 ```

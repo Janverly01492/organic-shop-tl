@@ -31,18 +31,18 @@
                     <p>Let's order fresh items for you.</p> <!--this is beta-->
                 </div>
 
-                <!-- <div class="link-container">
+                <div class="link-container" id="auth-links">
                     <button type="button" class="signup-link">SIGN UP</button>
                     <button type="button" class="login-link">LOGIN</button>
-                </div> -->
+                </div>
 
                 <!-- After the user's logged in -->
-                <div class="user-container">
+                <div class="user-container" id="user-profile" style="display: none;">
+                    <span id="user-display-name"></span>
                     <div class="dropdown">
                         <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
-
                         <div class="dropdown-content" id="dropdownMenu">
-                            <button type="button">Logout</button>
+                            <button type="button" id="logout-btn">Logout</button>
                         </div>
                     </div>
                 </div>
@@ -159,6 +159,7 @@
     </div>
 
  -->
+    <script src="js/input-validation.js"></script>
 </body>
 
 </html>

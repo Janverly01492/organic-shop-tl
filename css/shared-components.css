@@ -191,3 +191,28 @@ header>div {
     padding: 10px 20px;
     cursor: pointer;
 }
+
+
+/* ============= RESPONSIVE ============= */
+
+/* Tablet */
+@media (max-width: 1024px) and (min-width: 768px) {
+    aside {
+        display: none;
+    }
+
+    .page-content {
+        margin-left: 0;
+    }
+}
+
+/* Phone */
+@media (max-width: 767px) {
+    aside {
+        display: none;
+    }
+
+    .page-content {
+        margin-left: 0;
+    }
+}
