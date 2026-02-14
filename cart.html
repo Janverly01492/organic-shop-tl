@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 
 <head>
     <meta charset="UTF-8">
@@ -23,7 +24,7 @@
         </nav>
     </aside>
 
-    <div class="page-content">
+    <div class="whole-content">
         <header>
             <div>
                 <div class="logo-container">
@@ -34,6 +35,7 @@
                 <div class="link-container" id="auth-links">
                     <button type="button" class="signup-link">SIGN UP</button>
                     <button type="button" class="login-link">LOGIN</button>
+<<<<<<< Updated upstream
                 </div>
 
                 <!-- After the user's logged in -->
@@ -45,121 +47,223 @@
                             <button type="button" id="logout-btn">Logout</button>
                         </div>
                     </div>
+=======
+                </div>  -->
+
+                <!-- After the user's logged in -->
+                <div id="auth-container">
+                    <span>Name </span>
+                    <button type="button" id="signup-button">Log Out</button>
+>>>>>>> Stashed changes
                 </div>
             </div>
         </header>
 
-        <section class="search-cart">
-            <div class="search-form">
-                <i class="bi bi-search search-icon"></i>
+        <section class="search-container">
+            <form action="">
                 <input type="text" placeholder="Search for products..." class="search-bar">
-            </div>
+            </form>
 
-            <button type="button" class="cart-btn">
-                <i class="bi bi-cart4"></i> Cart
-            </button>
+            <button type="button"><i class="bi bi-cart4"></i> Cart</button>
         </section>
 
         <main>
-            <div class="checkout-layout">
-                <section class="cart-items">
-                    <h2>Cart Items</h2>
+            <div id="display-cart">
+
+                <section id="cart-items">
+                    <h2>Your Cart</h2>
+
                     <div id="cartContainer">
+
                         <div class="cart-item">
                             <img src="assets/img/beta_logo.jpg" alt="Product">
-                            <div class="item-details">
-                                <div class="item-name">Sample Product</div>
-                                <div class="item-price">₱100.00</div>
+
+                            <div class="cart-item-info">
+                                <h3>Sample Product</h3>
+                                <span class="cart-item-price">₱100.00</span>
                             </div>
-                            <input type="number" class="qty-input" value="1">
-                            <button>Edit</button> <!--andito yung delete..?-->
+
+                            <div class="cart-qty">
+                                <button type="button">−</button>
+                                <span class="cart-qty-value">1</span>
+                                <button type="button">+</button>
+                            </div>
+
+                            <div class="cart-item-total">
+                                <label>Total</label>
+                                <span>₱100.00</span>
+                            </div>
+
+                            <button class="cart-remove-btn">×</button>
                         </div>
+
                     </div>
                 </section>
 
-                <div class="ship-side">
-                    <section class="shipping">
-                        <h2>Shipping Information</h2>
-                        <form id="shippingForm">
-                            <div class="form-row">
-                                <input type="text" name="firstName" placeholder="First Name" required>
-                                <input type="text" name="lastName" placeholder="Last Name" required>
-                            </div>
+                <section id="shipping-information">
+                    <h2>Shipping Information</h2>
 
-                            <input type="text" name="address1" placeholder="Address" required>
-                            <input type="text" name="address2" placeholder="Address 2 (Optional)">
-
-                            <div class="form-row">
-                                <input type="text" name="city" placeholder="City" required>
-                                <input type="text" name="state" placeholder="State" required>
-                                <input type="text" name="zip" placeholder="Zip Code" required>
-                            </div>
-                        </form>
-                    </section>
-
-
-                    <section class="order-summary">
-                        <h2>Order Summary</h2>
-                        <div class="summary-row">
-                            <span>Item Count</span>
-                            <span id="itemCount">1</span>
+                    <form id="shippingForm">
+                        <div class="form-row">
+                            <input type="text" name="firstName" placeholder="First Name" required>
+                            <input type="text" name="lastName" placeholder="Last Name" required>
                         </div>
-                        <div class="summary-row">
-                            <span>Shipping Fee</span>
-                            <span id="shippingFee">₱50.00</span>
+
+                        <input type="text" name="address1" placeholder="Address" required>
+                        <input type="text" name="address2" placeholder="Address 2 (Optional)">
+
+                        <div class="form-row">
+                            <input type="text" name="city" placeholder="City" required>
+                            <input type="text" name="state" placeholder="State" required>
+                            <input type="text" name="zip" placeholder="Zip Code" required>
                         </div>
-                        <div class="summary-row total">
-                            <span>Total Amount</span>
-                            <span id="totalAmount">₱150.00</span>
-                        </div>
-                        <button type="button" class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
-                    </section>
-                </div>
+                    </form>
+                </section>
+                <section id="order-summary">
+                    <h2>Order Summary</h2>
+
+                    <div class="summary-row">
+                        <span>Items</span>
+                        <span id="total-amount">₱100.00</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Shipping Fee</span>
+                        <span id="shippingFee">₱50.00</span>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>Total Amount</span>
+                        <span id="totalAmount">₱150.00</span>
+                    </div>
+
+                    <button type="button" id="checkout-button">
+                        Proceed to Checkout
+                    </button>
+                </section>
+
             </div>
         </main>
+
     </div>
 
-    <!-- modals
-    <div id="check-out-modal-container">
-        <div id="check-out-container">
-            <button class="close-btn" type="button">&times;</button>
-            <div>
-                <img src="" alt="Brand logo">
-                <img src="" alt="Visa and Mastercard logo">
-            </div>
-            <form>
-                <span>Card Details</span>
-                <div class="column">
-                    <div>
-                        <label for="card-name">Card Name</label>
+    <!-- modals  -->
+        <div id="check-out-modal-container">
+            <div id="check-out-container">
+                <button class="close-btn" type="button">&times;</button>
+
+                <div class="brand-logos">
+                    <img src="assets/img/beta_logo.jpg" alt="Brand logo">
+                    <img src="assets/img/visa-mastercard.png" alt="Visa and Mastercard logo">
+                </div>
+
+                <form id="payment-form">
+                    <span>Card Details</span>
+
+                    <div class="column">
                         <input id="card-name" name="card-name" type="text" placeholder="Card Name" required>
-                    </div>
-                    <div>
-                        <label for="card-number">Card Number</label>
                         <input id="card-number" name="card-number" type="text" placeholder="Card Number" required>
                     </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <label for="expiration">Expiration</label>
-                        <input id="expiration" name="expiration" type="text" placeholder="MM/YY" required>
-                    </div>
-                    <div>
-                        <label for="cvc">CVC</label>
+                    <div class="row">
+                        <input id="expiration" name="expiration" type="text" placeholder="Expiration" required>
                         <input id="cvc" name="cvc" type="text" placeholder="CVC" required>
                     </div>
-                </div>
-                <div class="total">
-                    <span>Total Amount:</span>
-                    <span>$100</span>
-                </div>
-                <button type="submit">Pay</button>
-            </form>
+                    <div class="total">
+                        <span>Total Amount:</span>
+                        <span id="total-amount-modal">$100</span>
+                    </div>
+                    <button type="submit" id="pay-button">Pay</button>
+                </form>
+            </div>
         </div>
-    </div>
+        <div id="notification" class="notification">Payment Successful!</div>
 
+<<<<<<< Updated upstream
  -->
     <script src="js/input-validation.js"></script>
+=======
+    <script src="js/cart-modal.js"></script>
+    <script src="js/cart.js"></script>
+>>>>>>> Stashed changes
 </body>
 
 </html>
+=======
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Let's order fresh items for you.</a></li>
+        <li><a href="#"><img src="img/profile.png" alt="User Profile"></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="search-cart">
+      <div class="search-box">
+        <input type="search" placeholder="Search Products" id="searchInput">
+        <img src="img/search-icon.webp" alt="Search icon">
+        <img src="img/cart.png" alt="cart icon">
+      </div>
+    </section>
+
+    <div class="checkout-layout">
+
+      <section class="cart-items">
+        <h2>Cart Items</h2>
+        <div id="cartContainer"></div>
+      </section>
+
+      <div class="shipping-side">
+
+        <section class="shipping">
+          <h2>Shipping Information</h2>
+          <form id="shippingForm">
+            <div class="form-fill">
+              <input type="text" name="firstName" placeholder="First Name" required>
+              <input type="text" name="lastName" placeholder="Last Name" required>
+            </div>
+
+            <input type="text" name="address1" placeholder="Address" required>
+            <input type="text" name="address2" placeholder="Address 2 (Optional)">
+
+            <div class="form-fill">
+              <input type="text" name="city" placeholder="City" required>
+              <input type="text" name="state" placeholder="State" required>
+              <input type="text" name="zip" placeholder="Zip Code" required>
+            </div>
+          </form>
+        </section>
+
+        <section class="order-summary">
+          <h2>Order Summary</h2>
+          <div class="summary-row">
+            <span>Item Count</span>
+            <span id="itemCount">0</span>
+          </div>
+
+          <div class="summary-part">
+            <span>Shipping Fee</span>
+            <span id="shippingFee">₱0.00</span>
+          </div>
+
+          <div class="summary-part total">
+            <span>Total Amount</span>
+            <span id="totalAmount">₱0.00</span>
+          </div>
+
+          <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+        </section>
+
+      </div>
+    </div>
+  </main>
+</body>
+</html>
+>>>>>>> d16d9cf (Added cart.html page)
