@@ -1,10 +1,136 @@
 // Constants
-const DEFAULT_PRODUCT_IMAGE_SRC = "assets/img/beta_logo.jpg";
-const PAGE_SIZE = 10;
-
 const productContainer = document.querySelector(".product-grid");
 const productLength = document.querySelector(".count");
 const paginationContainer = document.querySelector(".pagination");
+
+const categoryList = document.getElementById("categories-list");
+const searchBar = document.querySelector(".search-bar");
+
+const PAGE_SIZE = 14;
+
+/*  
+ * DOCU: Renders category buttons into the categories list container.
+ * It counts products per category, uses the first product's image as the icon,
+ * and dynamically creates each category item in the sidebar.
+ * @param {none} - This function does not accept any parameter.
+ * @returns {void} - Does not return a value.
+ * @throws {None} - No exceptions are thrown.
+ *  
+ * Last Updated: 2026-02-14  
+ * Author: Allan Banzuela  
+ * Last Updated By: Allan Banzuela  
+ */
+function renderCategories() {
+    if (!categoryList) return;
+
+    const categories = { all: { count: 0 } }; // Added ALL as a category
+
+    getProducts().forEach(product => {
+        categories.all.count++; // Count all products for the "all" category
+
+        if (!categories[product.category]) {
+            categories[product.category] = { count: 1 }; // This is just to store the image of the first product in that category
+        } else {
+            categories[product.category].count++;
+        }
+    });
+
+    categoryList.innerHTML = "";
+
+    Object.keys(categories).forEach(category => {
+        // Creating the html elements for each category item
+        const categoryItem = document.createElement("li");
+        const categoryButton = document.createElement("button");
+        categoryItem.appendChild(categoryButton); // Put inside the list
+        const categoryName = document.createElement("span");
+        const categoryCount = document.createElement("span");
+        categoryButton.append(categoryName, categoryCount); // Put inside the button
+
+        // Here you can put classes to each element if you want, for styling purposes
+
+        // categoryName.classList.add("category-name"); this is just an example revomed when you are done with styling
+
+        // Set the content of each element
+        categoryName.innerText = category.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" "); // Format category name for example is "espresso-shakers" to "Espresso Shakers"
+        categoryCount.innerText = categories[category].count;
+
+        categoryButton.addEventListener("click", function () {
+            if (category === "all") {
+                goToPage(1);
+            } else {
+                categoryFilter(category);
+            }
+        });
+
+        categoryList.appendChild(categoryItem);
+    });
+}
+
+renderCategories();
+
+/*  
+ * DOCU: Filters products by the selected category and re-renders the product grid.
+ * It loops through all products, keeps only those matching the given category,
+ * updates the product count text, and calls renderProducts with the filtered list.
+ * @param {string} category - The category key to filter products by.
+ * @returns {void} - Does not return a value.
+ * @throws {None} - No exceptions are thrown.
+ *  
+ * Last Updated: 2026-02-14  
+ * Author: Allan Banzuela  
+ * Last Updated By: Allan Banzuela  
+ */
+function categoryFilter(category) {
+
+    const products = getProducts();
+    const filtered = [];
+
+    products.forEach(function (product) {
+        if (product.category === category) {
+            filtered.push(product);
+        }
+    });
+
+    goToPage(1, filtered);
+}
+
+/*  
+ * DOCU: Filters products by the search input value and re-renders the product grid.
+ * It compares the search term against product names (case-insensitive),
+ * updates the product count text, and calls renderProducts with the matching list.
+ * @param {none} - This function does not accept any parameter.
+ * @returns {void} - Does not return a value.
+ * @throws {None} - No exceptions are thrown.
+ *  
+ * Last Updated: 2026-02-14  
+ * Author: Allan Banzuela  
+ * Last Updated By: Allan Banzuela  
+ */
+function searchFilter() {
+    const searchTerm = searchBar.value.toLowerCase();
+
+    // If search bar is empty, go back to paginated view
+    if (searchTerm === "") {
+        goToPage(1);
+        return;
+    }
+
+    const products = getProducts();
+    const filtered = [];
+
+    products.forEach(function (product) {
+        if (product.name.toLowerCase().includes(searchTerm)) {
+            filtered.push(product);
+        }
+    });
+
+    goToPage(1, filtered);
+}
+
+// Listen for input on the search bar
+searchBar.addEventListener("input", searchFilter);
+
+
 
 /*  
  * DOCU: Renders product cards into the dashboard product grid container.
@@ -25,55 +151,39 @@ function renderProducts(products) {
 
     products.forEach(function (product) {
 
-        //Create anchor card
+        // Creating the html elements for each product card
         const card = document.createElement("a");
         card.href = `product-view.html?id=${product.id}`;
-        card.classList.add("product-card");
-
-        //Create thumbnail container
-	    const thumbDiv = document.createElement("div");
-	    thumbDiv.classList.add("product-thumb");
-
-	    const image = document.createElement("img");
-	    image.src = product.image || DEFAULT_PRODUCT_IMAGE_SRC;
-	    image.alt = product.name;
-	    image.classList.add("product-image");
-
-        thumbDiv.appendChild(image);
-
-        //Product Info container
+        const thumbDiv = document.createElement("div");
+        const image = document.createElement("img");
+        thumbDiv.appendChild(image); // Put inside the thumbnail
         const infoDiv = document.createElement("div");
-        infoDiv.classList.add("product-info");
-
-        // Left side 
         const infoLeft = document.createElement("div");
-        infoLeft.classList.add("info-details");
-
         const name = document.createElement("h3");
+        const meta = document.createElement("p");
+        infoLeft.append(name, meta); // Put inside the info left
+        const price = document.createElement("p");
+        infoDiv.append(infoLeft, price); // Put inside the info container
+        card.append(thumbDiv, infoDiv); // Put inside the card
+
+        // Here you can put classes to each element if you want, for styling purposes
+        card.classList.add("product-card");
+        thumbDiv.classList.add("product-thumb");
+        image.classList.add("product-image");
+        infoDiv.classList.add("product-info");
+        infoLeft.classList.add("info-details");
         name.classList.add("product-name");
+        meta.classList.add("product-meta");
+        price.classList.add("product-price");
+
+        // Set the content of each element
+        image.src = product.image || DEFAULT_PRODUCT_IMAGE_SRC;
+        image.alt = product.name;
         name.innerText = product.name;
+        meta.innerText = `${product.stars} stars • ${product.ratings} Ratings`;
+        price.innerText = `$${Number(product.price).toFixed(2)}`;
 
-	    const meta = document.createElement("p");
-	    meta.classList.add("product-meta");
-	    meta.innerText = `${product.stars} stars • ${product.ratings} Ratings`;
-
-        infoLeft.appendChild(name);
-        infoLeft.appendChild(meta);
-
-        //Price
-	    const price = document.createElement("p");
-	    price.classList.add("product-price");
-	    price.innerText = `$${Number(product.price).toFixed(2)}`;
-
-        //Assemble info section
-        infoDiv.appendChild(infoLeft);
-        infoDiv.appendChild(price);
-
-        //Assemble card
-        card.appendChild(thumbDiv);
-        card.appendChild(infoDiv);
-
-        //Append to container
+        // Append to container
         productContainer.appendChild(card);
     });
 }
@@ -107,9 +217,10 @@ function getProducts() {
 * Last Updated: 2026-02-14  
 * Author: Kerzania  
 */
-function goToPage(page) {
+function goToPage(page, productList) {
 
-    const products = getProducts();
+    // Use provided list or default to all products
+    const products = productList || getProducts();
     const totalPages = Math.ceil(products.length / PAGE_SIZE);
 
     //keep page within valid range
@@ -124,7 +235,7 @@ function goToPage(page) {
     }
 
     renderProducts(pageProducts);
-    renderPagination(totalPages, page);
+    renderPagination(totalPages, page, products);
 }
 
 
@@ -141,55 +252,66 @@ function goToPage(page) {
 * Last Updated: 2026-02-14  
 * Author: Kerzania  
 */
-function renderPagination(totalPages, activePage) {
+function renderPagination(totalPages, activePage, productList) {
 
     paginationContainer.innerHTML = "";
 
-    // prev
+    // Creating the html element for the previous button
     const prevBtn = document.createElement("button");
     prevBtn.type = "button";
+
+    // Here you can put classes to the element if you want, for styling purposes
+    prevBtn.classList.add("page-btn");
+
+    // Set the content of the element
     prevBtn.innerText = "<";
-    prevBtn.classList.add("page-btn")
     prevBtn.disabled = activePage === 1;
 
     prevBtn.addEventListener("click", function () {
-        goToPage(activePage - 1);
+        goToPage(activePage - 1, productList);
     });
 
     paginationContainer.appendChild(prevBtn);
 
-    // page numbers
+    // Creating the html elements for each page number button
     for (let page = 1; page <= totalPages; page++) {
 
         const btn = document.createElement("button");
         btn.type = "button";
+
+        // Here you can put classes to the element if you want, for styling purposes
+        btn.classList.add("page-btn");
+
+        // Set the content of the element
         btn.innerText = page;
-        btn.classList.add("page-btn")
 
         if (page === activePage) {
             btn.classList.add("active");
         }
 
         btn.addEventListener("click", function () {
-            goToPage(page);
+            goToPage(page, productList);
         });
 
         paginationContainer.appendChild(btn);
     }
 
-    // next
+    // Creating the html element for the next button
     const nextBtn = document.createElement("button");
     nextBtn.type = "button";
+
+    // Here you can put classes to the element if you want, for styling purposes
+    nextBtn.classList.add("page-btn");
+
+    // Set the content of the element
     nextBtn.innerText = ">";
-    nextBtn.classList.add("page-btn")
     nextBtn.disabled = activePage === totalPages;
 
     nextBtn.addEventListener("click", function () {
-        goToPage(activePage + 1);
+        goToPage(activePage + 1, productList);
     });
 
     paginationContainer.appendChild(nextBtn);
 }
 
 goToPage(1);
-

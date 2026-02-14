@@ -89,9 +89,9 @@ displaySelectedProduct();
  * Last Updated By: Jheanne A. Salan
  */
 function toggleDropdown(event) {
-    const dropdown = document.getElementById("dropdownMenu");
-    dropdown.classList.toggle("show");
-    event.stopPropagation(); // Prevents event from bubbling to window
+  const dropdown = document.getElementById("dropdownMenu");
+  dropdown.classList.toggle("show");
+  event.stopPropagation(); // Prevents event from bubbling to window
 }
 
 /*
@@ -105,12 +105,12 @@ function toggleDropdown(event) {
  * Last Updated By: Jheanne A. Salan
  */
 function closeDropdown(event) {
-    const avatar = document.getElementById("avatar");
-    const dropdown = document.getElementById("dropdownMenu");
+  const avatar = document.getElementById("avatar");
+  const dropdown = document.getElementById("dropdownMenu");
 
-    if (!avatar.contains(event.target) && !dropdown.contains(event.target)) {
-        dropdown.classList.remove("show");
-    }
+  if (!avatar.contains(event.target) && !dropdown.contains(event.target)) {
+    dropdown.classList.remove("show");
+  }
 }
 
 /*
@@ -124,8 +124,8 @@ function closeDropdown(event) {
  * Last Updated By: Jheanne A. Salan
  */
 function changeQty(step) {
-    const qtyInput = document.getElementById("qty");
-    const current = parseInt(qtyInput.value, 10) || 1;
-    const next = Math.max(1, current + step);
-    qtyInput.value = next;
+  const qtyInput = document.getElementById("qty");
+  const current = parseInt(qtyInput.value, 10) || 1;
+  const next = Math.max(1, current + step);
+  qtyInput.value = next;
 }
