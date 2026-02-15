@@ -100,7 +100,7 @@ main {
     background: #28a745;
     color: #fff;
     cursor: pointer;
-    transition: background 0.2s ease;
+    /* transition: background 0.2s ease; */
 }
 
 .ship-side {

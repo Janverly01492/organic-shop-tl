@@ -8,32 +8,33 @@ const searchBar = document.querySelector(".search-bar");
 
 const PAGE_SIZE = 14;
 
-// Store clicked product ID without using URL params
-if (productContainer) {
-    productContainer.addEventListener("click", function (e) {
-        const card = e.target.closest("a.product-card");
-        if (!card) return;
+// Hamburger Menu Function
+const menuBtn = document.getElementById("menuBtn");
+const overlay = document.getElementById("overlay");
 
-        const productId = Number(card.dataset.productId);
-        if (!Number.isFinite(productId)) return;
+if (menuBtn && overlay) {
+    menuBtn.addEventListener("click", () => {
+        document.body.classList.toggle("menu-open");
+    });
 
-        if (window.AppState && typeof window.AppState.setSelectedProductId === "function") {
-            window.AppState.setSelectedProductId(productId);
-        }
+    overlay.addEventListener("click", () => {
+        document.body.classList.remove("menu-open");
     });
 }
 
+
 /*  
  * DOCU: Renders category buttons into the categories list container.
- * It counts products per category, uses the first product's image as the icon,
- * and dynamically creates each category item in the sidebar.
+ * It counts products per category and dynamically creates each category item in the sidebar.
+ * Also applies an "active" state to the clicked category button for UI feedback.
+ *  
  * @param {none} - This function does not accept any parameter.
  * @returns {void} - Does not return a value.
  * @throws {None} - No exceptions are thrown.
  *  
- * Last Updated: 2026-02-14  
+ * Last Updated: 2026-02-15  
  * Author: Allan Banzuela  
- * Last Updated By: Allan Banzuela  
+ * Last Updated By: Jheanne Salan  
  */
 function renderCategories() {
     if (!categoryList) return;
@@ -41,10 +42,10 @@ function renderCategories() {
     const categories = { all: { count: 0 } }; // Added ALL as a category
 
     getProducts().forEach(product => {
-        categories.all.count++; // Count all products for the "all" category
+        categories.all.count++;
 
         if (!categories[product.category]) {
-            categories[product.category] = { count: 1 }; // This is just to store the image of the first product in that category
+            categories[product.category] = { count: 1 };
         } else {
             categories[product.category].count++;
         }
@@ -53,23 +54,36 @@ function renderCategories() {
     categoryList.innerHTML = "";
 
     Object.keys(categories).forEach(category => {
-        // Creating the html elements for each category item
         const categoryItem = document.createElement("li");
         const categoryButton = document.createElement("button");
-        categoryItem.appendChild(categoryButton); // Put inside the list
+        categoryItem.appendChild(categoryButton);
+
         const categoryName = document.createElement("span");
         const categoryCount = document.createElement("span");
-        categoryButton.append(categoryName, categoryCount); // Put inside the button
+        categoryButton.append(categoryName, categoryCount);
 
-        // Here you can put classes to each element if you want, for styling purposes
+        categoryName.innerText = category
+            .split("-")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
 
-        // categoryName.classList.add("category-name"); this is just an example revomed when you are done with styling
-
-        // Set the content of each element
-        categoryName.innerText = category.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" "); // Format category name for example is "espresso-shakers" to "Espresso Shakers"
         categoryCount.innerText = categories[category].count;
 
+        // Set default active button to "all"
+        if (category === "all") {
+            categoryButton.classList.add("active");
+        }
+
         categoryButton.addEventListener("click", function () {
+            // remove active from all category buttons
+            document.querySelectorAll("#categories-list button").forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            // add active to the clicked one
+            categoryButton.classList.add("active");
+
+            // filter products
             if (category === "all") {
                 goToPage(1);
             } else {
