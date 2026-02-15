@@ -153,11 +153,12 @@ main {
 }
 
 .product-thumb {
-    height: 110px;
+    height: 120px;
     background: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 1.5em;
 }
 
 .product-image {
@@ -439,7 +440,7 @@ main {
     }
 
     .product-card {
-        height: 210px;
+        height: 240px;
         display: flex;
         flex-direction: column;
     }
@@ -454,7 +455,7 @@ main {
     }
 
     .product-info {
-        padding: 14px 12px;
+        padding: 10px 7px;
         min-height: 70px;
         margin-top: auto;
     }

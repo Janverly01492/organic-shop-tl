@@ -127,6 +127,7 @@ header>div {
     display: flex;
     align-items: center;
     position: relative;
+    gap: 15px;
 }
 
 .dropdown {
