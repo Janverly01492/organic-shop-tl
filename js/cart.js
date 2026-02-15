@@ -25,6 +25,37 @@ const notification = document.getElementById('notification');
 
 const SHIPPING_FEE = 49;
 
+
+/*  
+ * DOCU: Initializes and controls the hamburger menu toggle behavior.
+ * It listens for clicks on the menu button to open/close the sidebar drawer,
+ * and listens for clicks on the overlay to close the sidebar.
+ *  
+ * @param {none} - This block does not accept any parameters.
+ * @returns {void} - Does not return any value.
+ * @throws {None} - No exceptions are explicitly thrown.
+ *  
+ * Last Updated: 2026-02-15
+ * Author: Jheanne A. Salan
+ * Last Updated By: Jheanne A. Salan
+ */
+
+// Hamburger Menu Function 
+const menuBtn = document.getElementById("menuBtn");
+const overlay = document.getElementById("overlay");
+
+if (menuBtn && overlay) {
+    menuBtn.addEventListener("click", () => {
+        document.body.classList.toggle("menu-open");
+    });
+
+    overlay.addEventListener("click", () => {
+        document.body.classList.remove("menu-open");
+    });
+}
+
+
+
 /*  
  * DOCU: Convert a currency string like "₱100.00" to a number 100  
  * @param {string} str - Currency string to convert  

@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="css/product-view.css">
     <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -23,6 +28,8 @@
         </nav>
     </aside>
 
+    <div class="overlay" id="overlay"></div>
+
     <div class="page-content">
         <header>
             <div>
@@ -31,9 +38,15 @@
                     <p>Let's order fresh items for you.</p> <!--this is beta-->
                 </div>
 
-                <div class="link-container" id="auth-links">
-                    <button type="button" class="signup-link">SIGN UP</button>
-                    <button type="button" class="login-link">LOGIN</button>
+                <div class="header-actions">
+                    <div class="link-container" id="auth-links">
+                        <button type="button" class="signup-link">SIGN UP</button>
+                        <button type="button" class="login-link">LOGIN</button>
+                    </div>
+
+                    <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu">
+                        <i class="bi bi-list"></i>
+                    </button>
                 </div>
 
                 <!-- After the user's logged in -->
@@ -98,10 +111,10 @@
 
             <section class="similar-items">
                 <h2>Similar Items</h2>
-            
+
                 <div class="product-grid">
                     <!-- This is where dynamic similar items go -->
-                   
+
                 </div>
             </section>
         </main>
