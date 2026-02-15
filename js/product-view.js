@@ -224,9 +224,69 @@ function createProductCard(product) {
     return card;
 }
 
+/*  
+* DOCU: Adds a product to the shopping cart. Requires user authentication.
+* If user is not logged in, prompts them to log in or sign up first.
+*  
+* @param {none} - This function does not accept any parameter.
+* @returns {void} - This function does not return a value.
+* @throws {none} - This function does not explicitly throw errors.
+*
+* Last Updated: 2026-02-15  
+* Author: Errol
+*/
 function addToCart() {
-    //no function yet
+    const urlParams = new URLSearchParams(window.location.search);
+    const userName = urlParams.get("user");
+    
+    if (!userName) {
+        alert("Please log in or sign up to add items to your cart.");
+        return;
+    }
+
+    const productId = getProductIdFromURL();
+    const product = findProductById(productId);
+
+    if (!product) {
+        alert("Error: Product not found!");
+        return;
+    }
+
+    const quantity = getQty();
+
+    let cart = JSON.parse(localStorage.getItem('organic_shop_cart')) || [];
+
+    const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+    if (existingProductIndex > -1) {
+        cart[existingProductIndex].quantity += quantity;
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: quantity
+        });
+    }
+
+    localStorage.setItem('organic_shop_cart', JSON.stringify(cart));
+
+    const modal = document.getElementById('notification-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+        
+        const msg = modal.querySelector('p');
+        if (msg) msg.innerText = `${product.name} (x${quantity}) has been added to cart.`;
+    } else {
+        alert(`${product.name} (x${quantity}) added to cart!`);
+    }
 }
+
+// Close Modal Logic
+document.getElementById('close-notification-btn')?.addEventListener('click', function() {
+    document.getElementById('notification-modal').style.display = 'none';
+});
 
 
 /*
@@ -286,3 +346,112 @@ function changeQty(step) {
 
 displaySelectedProduct();
 displaySimilarItems();
+
+/*  
+ * DOCU: Implements live search functionality for products.
+ * Searches through all products and displays matching results in a dropdown.
+ * Users can click on results to navigate to the product page.
+ *  
+ * Last Updated: 2026-02-15  
+ * Author: Errol  
+ */
+(function initializeProductSearch() {
+    const searchBar = document.getElementById('product-search-bar');
+    const searchResultsDropdown = document.getElementById('search-results-dropdown');
+    
+    if (!searchBar || !searchResultsDropdown) return;
+
+    /*  
+     * DOCU: Searches products by name based on the query string.
+     * @param {string} query - The search term entered by the user.
+     * @returns {Array} - Array of matching products.
+     */
+    function searchProducts(query) {
+        if (!query || query.trim() === '') return [];
+        
+        const lowerQuery = query.toLowerCase().trim();
+        return PRODUCTS.filter(function(product) {
+            return product.name.toLowerCase().includes(lowerQuery);
+        });
+    }
+
+    /*  
+     * DOCU: Displays search results in the dropdown.
+     * @param {Array} results - Array of product objects to display.
+     * @returns {void}
+     */
+    function displaySearchResults(results) {
+        searchResultsDropdown.innerHTML = '';
+        
+        if (results.length === 0) {
+            searchResultsDropdown.innerHTML = '<div style="padding: 15px; text-align: center; color: #666;">No products found</div>';
+            searchResultsDropdown.style.display = 'block';
+            return;
+        }
+
+        results.forEach(function(product) {
+            const resultItem = document.createElement('a');
+            resultItem.href = 'product-view.html?id=' + product.id;
+            resultItem.style.cssText = 'display: flex; align-items: center; padding: 12px 15px; text-decoration: none; color: #333; border-bottom: 1px solid #f0f0f0; transition: background-color 0.2s;';
+            
+            resultItem.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = '#f8f8f8';
+            });
+            
+            resultItem.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = 'white';
+            });
+
+            const img = document.createElement('img');
+            img.src = product.image;
+            img.alt = product.name;
+            img.style.cssText = 'width: 50px; height: 50px; object-fit: cover; border-radius: 8px; margin-right: 12px;';
+
+            const infoDiv = document.createElement('div');
+            infoDiv.style.cssText = 'flex: 1;';
+
+            const nameEl = document.createElement('div');
+            nameEl.textContent = product.name;
+            nameEl.style.cssText = 'font-weight: 600; margin-bottom: 4px;';
+
+            const priceEl = document.createElement('div');
+            priceEl.textContent = '$' + Number(product.price).toFixed(2);
+            priceEl.style.cssText = 'color: #4CAF50; font-size: 14px;';
+
+            infoDiv.appendChild(nameEl);
+            infoDiv.appendChild(priceEl);
+
+            resultItem.appendChild(img);
+            resultItem.appendChild(infoDiv);
+
+            searchResultsDropdown.appendChild(resultItem);
+        });
+
+        searchResultsDropdown.style.display = 'block';
+    }
+
+    searchBar.addEventListener('input', function(e) {
+        const query = e.target.value;
+        
+        if (!query || query.trim() === '') {
+            searchResultsDropdown.style.display = 'none';
+            return;
+        }
+
+        const results = searchProducts(query);
+        displaySearchResults(results);
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!searchBar.contains(e.target) && !searchResultsDropdown.contains(e.target)) {
+            searchResultsDropdown.style.display = 'none';
+        }
+    });
+
+    searchBar.addEventListener('focus', function(e) {
+        if (e.target.value.trim() !== '') {
+            const results = searchProducts(e.target.value);
+            displaySearchResults(results);
+        }
+    });
+})();

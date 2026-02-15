@@ -22,7 +22,29 @@ function hideCartModal() {
 hideCartModal();
 
 // Show cart modal when CHECK OUT is clicked
+const shippingForm = document.getElementById('shippingForm');
+
 cartBtn.addEventListener('click', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userName = urlParams.get("user");
+    
+    if (!userName) {
+        alert("Please log in or sign up to proceed to checkout.");
+        return;
+    }
+
+    const cart = JSON.parse(localStorage.getItem('organic_shop_cart')) || [];
+    if (cart.length === 0) {
+        alert("Your cart is empty! Please add items to your cart before checking out.");
+        return;
+    }
+
+    // Validate shipping form first
+    if (shippingForm && !shippingForm.checkValidity()) {
+        shippingForm.reportValidity();
+        return;
+    }
+
     hideCartModal();
     if (cartModal) {
         cartModal.style.display = 'flex';
