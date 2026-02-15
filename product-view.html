@@ -7,8 +7,15 @@
     <title>Product View</title>
     <link rel="stylesheet" href="css/shared-components.css">
     <link rel="stylesheet" href="css/product-view.css">
+    <link rel="stylesheet" href="css/modals/signup.css">
+    <link rel="stylesheet" href="css/modals/login.css">
     <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -23,6 +30,8 @@
         </nav>
     </aside>
 
+    <div class="overlay" id="overlay"></div>
+
     <div class="page-content">
         <header>
             <div>
@@ -31,9 +40,15 @@
                     <p>Let's order fresh items for you.</p> <!--this is beta-->
                 </div>
 
-                <div class="link-container" id="auth-links">
-                    <button type="button" class="signup-link">SIGN UP</button>
-                    <button type="button" class="login-link">LOGIN</button>
+                <div class="header-actions">
+                    <div class="link-container" id="auth-links">
+                        <button type="button" class="signup-link">SIGN UP</button>
+                        <button type="button" class="login-link">LOGIN</button>
+                    </div>
+
+                    <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu">
+                        <i class="bi bi-list"></i>
+                    </button>
                 </div>
 
                 <!-- After the user's logged in -->
@@ -50,8 +65,13 @@
         </header>
 
         <section class="search-container">
-            <form action="">
-                <input type="text" placeholder="Search for products..." class="search-bar">
+            <form action="" onsubmit="return false;">
+                <div style="position: relative; flex: 1;">
+                    <input type="text" id="product-search-bar" placeholder="Search for products..." class="search-bar">
+                    <div id="search-results-dropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; border-radius: 8px; max-height: 400px; overflow-y: auto; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: 5px;">
+                        <!-- results -->
+                    </div>
+                </div>
             </form>
 
             <a href="cart.html"><i class="bi bi-cart4"></i> Cart</a>
@@ -74,12 +94,12 @@
                     <div class="product-content">
                         <h3 id="productName">Product Name</h3>
                         <p id="productMeta">5 stars • 999+ Ratings</p>
-                        <h4 class="price-tag"><span id="productPrice">9999</span>$</h4>
+                        <h4 class="price-tag">$<span id="productPrice">9999</span></h4>
                         <p id="productDescription">
                             Lorem ipsum dolor sit amet consectetur. Eget sit posuere enim
                             facilisi. Pretium orci venenatis habitasse gravida nulla tincidunt iaculis. Aliquet at massa
                             quisque libero viverra ut sed. Est vulputate est rutrum nunc nunc pellentesque ultrices
-                            pharetra. Mauris euismod sed vel quisque tincidunt suspendisse sed turpis volutpat. .
+                            pharetra. Mauris euismod sed vel quisque tincidunt suspendisse sed turpis volutpat.
                         </p>
                     </div>
                     <div class="purchase-function">
@@ -91,98 +111,36 @@
 
                         <p class="total-amount">Total: $<span id="totalPrice">9999</span></p>
 
-                        <button type="button" class="add-cart">Add to Cart</button>
+                        <button type="button" class="add-cart" onclick="addToCart()">Add to Cart</button>
                     </div>
                 </div>
             </section>
 
             <section class="similar-items">
                 <h2>Similar Items</h2>
+
                 <div class="product-grid">
-                    <!-- Copy this to make new -->
-                    <a href="product-view.html" class="product-card">
-                        <div class="product-thumb">
-                            <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
-                        </div>
+                    <!-- This is where dynamic similar items go -->
 
-                        <div class="product-info">
-                            <div class="info-left">
-                                <h3 class="product-name">Product Name</h3>
-                                <p class="product-meta">4 stars • 36 Ratings</p>
-                            </div>
-
-                            <p class="product-price">$10</p>
-                        </div>
-                    </a>
-
-                    <!-- Copy this to make new -->
-                    <a href="product-view.html" class="product-card">
-                        <div class="product-thumb">
-                            <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
-                        </div>
-
-                        <div class="product-info">
-                            <div class="info-left">
-                                <h3 class="product-name">Product Name</h3>
-                                <p class="product-meta">4 stars • 36 Ratings</p>
-                            </div>
-
-                            <p class="product-price">$10</p>
-                        </div>
-                    </a>
-
-                    <!-- Copy this to make new -->
-                    <a href="product-view.html" class="product-card">
-                        <div class="product-thumb">
-                            <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
-                        </div>
-
-                        <div class="product-info">
-                            <div class="info-left">
-                                <h3 class="product-name">Product Name</h3>
-                                <p class="product-meta">4 stars • 36 Ratings</p>
-                            </div>
-
-                            <p class="product-price">$10</p>
-                        </div>
-                    </a>
-
-                    <!-- Copy this to make new -->
-                    <a href="product-view.html" class="product-card">
-                        <div class="product-thumb">
-                            <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
-                        </div>
-
-                        <div class="product-info">
-                            <div class="info-left">
-                                <h3 class="product-name">Product Name</h3>
-                                <p class="product-meta">4 stars • 36 Ratings</p>
-                            </div>
-
-                            <p class="product-price">$10</p>
-                        </div>
-                    </a>
-
-                    <!-- Copy this to make new -->
-                    <a href="product-view.html" class="product-card">
-                        <div class="product-thumb">
-                            <img src="assets/img/beta_logo.jpg" alt="Product Image" class="product-image">
-                        </div>
-
-                        <div class="product-info">
-                            <div class="info-left">
-                                <h3 class="product-name">Product Name</h3>
-                                <p class="product-meta">4 stars • 36 Ratings</p>
-                            </div>
-
-                            <p class="product-price">$10</p>
-                        </div>
-                    </a>
                 </div>
             </section>
         </main>
     </div>
 
+    <!-- modals -->
+    <div id="notification-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; max-width: 300px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="font-size: 48px; color: #4CAF50; margin-bottom: 10px;">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+            <h3 style="margin: 0 0 10px 0; color: #333;">Item Added!</h3>
+            <p style="margin: 0 0 20px 0; color: #666;">The item has been added to your cart.</p>
+            <button id="close-notification-btn" style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px;">OK</button>
+        </div>
+    </div>
+
+
+    <script src="js/dashboard-modal.js"></script>
     <script src="js/products.data.js"></script>
     <script src="js/product-view.js"></script>
     <script src="js/input-validation.js"></script>
