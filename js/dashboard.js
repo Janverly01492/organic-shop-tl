@@ -8,7 +8,21 @@ const searchBar = document.querySelector(".search-bar");
 
 const PAGE_SIZE = 14;
 
-// Hamburger Menu Function
+/*  
+ * DOCU: Initializes and controls the hamburger menu toggle behavior.
+ * It listens for clicks on the menu button to open/close the sidebar drawer,
+ * and listens for clicks on the overlay to close the sidebar.
+ *  
+ * @param {none} - This block does not accept any parameters.
+ * @returns {void} - Does not return any value.
+ * @throws {None} - No exceptions are explicitly thrown.
+ *  
+ * Last Updated: 2026-02-15
+ * Author: Jheanne A. Salan
+ * Last Updated By: Jheanne A. Salan
+ */
+
+// Hamburger Menu Function 
 const menuBtn = document.getElementById("menuBtn");
 const overlay = document.getElementById("overlay");
 
@@ -21,6 +35,7 @@ if (menuBtn && overlay) {
         document.body.classList.remove("menu-open");
     });
 }
+
 
 
 /*  

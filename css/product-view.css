@@ -168,6 +168,33 @@ main {
     white-space: nowrap;
 }
 
+/* ===== hamburger menu function ===== */
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 9;
+}
+
+/* hamburger */
+.menu-btn {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid #d8c1ab;
+    background: #fff;
+    color: #5A3D2B;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 /* ============= RESPONSIVE ============= */
 
@@ -180,6 +207,44 @@ main {
     .product-grid {
         grid-template-columns: repeat(4, 1fr);
     }
+
+    /* show hamburger */
+    .menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* remove left offset if your shared css uses margin-left */
+    .page-content {
+        margin-left: 0;
+    }
+
+    /* aside becomes drawer */
+    aside {
+        display: flex;
+        width: 90px;
+        align-items: flex-start;
+        padding: 16px;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+
+        transform: translateX(-110%);
+        transition: transform 0.25s ease;
+        z-index: 10;
+        background: #fff;
+    }
+
+    body.menu-open aside {
+        transform: translateX(0);
+    }
+
+    body.menu-open .overlay {
+        display: block;
+    }
 }
 
 /* Phone */
@@ -190,5 +255,43 @@ main {
 
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* show hamburger */
+    .menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* remove left offset if your shared css uses margin-left */
+    .page-content {
+        margin-left: 0;
+    }
+
+    /* aside becomes drawer */
+    aside {
+        display: flex;
+        width: 90px;
+        align-items: flex-start;
+        padding: 16px;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+
+        transform: translateX(-110%);
+        transition: transform 0.25s ease;
+        z-index: 10;
+        background: #fff;
+    }
+
+    body.menu-open aside {
+        transform: translateX(0);
+    }
+
+    body.menu-open .overlay {
+        display: block;
     }
 }
