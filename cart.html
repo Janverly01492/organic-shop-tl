@@ -17,6 +17,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/modals/signup.css">
+    <link rel="stylesheet" href="css/modals/login.css">
 </head>
 
 <body>
@@ -117,7 +119,7 @@
                             <div class="form-row">
                                 <input type="text" name="city" placeholder="City" required>
                                 <input type="text" name="state" placeholder="State" required>
-                                <input type="text" name="zip" placeholder="Zip Code" required>
+                                <input type="number" name="zip" placeholder="Zip Code" required>
                             </div>
                         </form>
                     </section>
@@ -152,7 +154,7 @@
                 <img src="" alt="Brand logo">
                 <img src="" alt="Visa and Mastercard logo">
             </div>
-            <form>
+            <form id="paymentForm">
                 <span>Card Details</span>
                 <div class="column">
                     <div>
@@ -161,7 +163,7 @@
                     </div>
                     <div>
                         <label for="card-number">Card Number</label>
-                        <input id="card-number" name="card-number" type="text" placeholder="Card Number" required>
+                        <input id="card-number" name="card-number" type="number" placeholder="Card Number" required>
                     </div>
                 </div>
                 <div class="row">
@@ -171,21 +173,40 @@
                     </div>
                     <div>
                         <label for="cvc">CVC</label>
-                        <input id="cvc" name="cvc" type="text" placeholder="CVC" required>
+                        <input id="cvc" name="cvc" type="number" placeholder="CVC" required>
                     </div>
                 </div>
                 <div class="total">
                     <span>Total Amount:</span>
-                    <span>$100</span>
+                    <span id="total-amount-modal">$100</span>
                 </div>
                 <button type="submit">Pay</button>
             </form>
         </div>
+        </div>
     </div>
 
+    <!-- modals -->
+    <div id="notification-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; max-width: 300px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="font-size: 48px; color: #4CAF50; margin-bottom: 10px;">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+            <h3 style="margin: 0 0 10px 0; color: #333;">Order Successful!</h3>
+            <p style="margin: 0 0 20px 0; color: #666;">Your order has been placed successfully.</p>
+            <button id="close-notification-btn" style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px;">OK</button>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="js/products.data.js"></script>
     <script src="js/cart-modal.js"></script>
-    <script src="js/input-validation.js"></script>
     <script src="js/cart.js"></script>
+    <script src="js/input-validation.js"></script>
+    <script src="js/dashboard-modal.js"></script>
 </body>
 
 </html>
