@@ -8,6 +8,21 @@ const searchBar = document.querySelector(".search-bar");
 
 const PAGE_SIZE = 14;
 
+// Store clicked product ID without using URL params
+if (productContainer) {
+    productContainer.addEventListener("click", function (e) {
+        const card = e.target.closest("a.product-card");
+        if (!card) return;
+
+        const productId = Number(card.dataset.productId);
+        if (!Number.isFinite(productId)) return;
+
+        if (window.AppState && typeof window.AppState.setSelectedProductId === "function") {
+            window.AppState.setSelectedProductId(productId);
+        }
+    });
+}
+
 /*  
  * DOCU: Renders category buttons into the categories list container.
  * It counts products per category, uses the first product's image as the icon,
