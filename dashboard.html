@@ -143,20 +143,23 @@
                             <label for="email">Email</label>
                             <small class="error"></small>
                         </div>
-                        <div class="input-group">
-                            <input id="password" name="password" type="password" required>
-                            <label for="password">Password</label>
-                            <button type="button" class="toggle-password" data-target="password"
-                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: inherit;">Show</button>
-                            <small class="error"></small>
+                        <div class="password-input">
+                            <div class="input-group">
+                                <input id="password" name="password" type="password" required>
+                                <label for="password">Password</label>
+                                <small class="error"></small>
+                            </div>
+                            <button type="button" class="toggle-password" data-target="password">Show</button>  
                         </div>
-                        <div class="input-group">
-                            <input id="confirm-password" name="confirm-password" type="password" required>
-                            <label for="confirm-password">Confirm Password</label>
-                            <button type="button" class="toggle-password" data-target="confirm-password"
-                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: inherit;">Show</button>
-                            <small class="error"></small>
+                        <div class="password-input">
+                            <div class="input-group">
+                                <input id="confirm-password" name="confirm-password" type="password" required>
+                                <label for="confirm-password">Confirm Password</label>
+                                <small class="error"></small>
+                            </div>
+                            <button type="button" class="toggle-password" data-target="confirm-password">Show</button>
                         </div>
+
                     </div>
                     <div class="underline"></div>
 
@@ -186,16 +189,19 @@
                         <small class="error"></small>
                     </div>
 
-                    <div class="input-group">
-                        <input type="password" id="login-password" name="password" required>
-                        <label for="login-password">Password</label>
+                    <!-- Password input with show/hide toggle - CURRENTLY DOING -->
+                    <div class="password-input">
+                        <div class="input-group">
+                            <input type="password" id="login-password" name="password" required>
+                            <label for="login-password">Password</label>
+                            <small class="error"></small>
+                        </div>
                         <button type="button" class="toggle-password" data-target="login-password">Show</button>
-                        <small class="error"></small>
                     </div>
 
                     <div class="underline"></div>
 
-                    <button type="submit">Log in</button>
+                    <button class="login-btn" type="submit">Log in</button>
                 </form>
             </div>
             <img src="assets/img/beta_logo.jpg" alt="Fresh vegetables" class="side-image">

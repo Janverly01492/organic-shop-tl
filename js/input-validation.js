@@ -74,8 +74,10 @@ function clearError(input) {
  */
 function validateEmail(emailInput) {
     const value = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.com$/i;
+    
     if (value === "") return showError(emailInput, "Email is required");
-    if (!value.includes("@")) return showError(emailInput, "Enter a valid email");
+    if (!emailRegex.test(value)) return showError(emailInput, "Enter a valid email (e.g., user@example.com)");
     return clearError(emailInput);
 }
 
@@ -89,7 +91,15 @@ function validateEmail(emailInput) {
  * Last Updated By: Errol Tabangen
  */
 function validatePassword(passwordInput) {
-    if (passwordInput.value.length < 6) return showError(passwordInput, "Password must be at least 6 characters");
+    const value = passwordInput.value;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
+
+    if (value.length < 6) {
+        return showError(passwordInput, "Password must be at least 6 characters");
+    }
+    if (!passwordRegex.test(value)) {
+        return showError(passwordInput, "Password must include uppercase, lowercase, number, and special character");
+    }
     return clearError(passwordInput);
 }
 
@@ -123,7 +133,6 @@ if (signupForm) {
 
         if (!isValid) return;
 
-        // Redirect with user in URL (no storage)
         const currentUrl = new URL(window.location.href);
         currentUrl.searchParams.set("user", firstName.value.trim());
         window.location.href = currentUrl.toString();
@@ -142,7 +151,6 @@ if (loginForm) {
         let isValid = validateEmail(email) && validatePassword(password);
         if (!isValid) return;
 
-        // Redirect with URL using first part of email as placeholder for name
         const firstName = email.value.split("@")[0];
         const currentUrl = new URL(window.location.href);
         currentUrl.searchParams.set("user", firstName);
