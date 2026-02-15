@@ -10,6 +10,7 @@ const totalPrice = document.getElementById("totalPrice");
 document.getElementById("avatar").addEventListener("click", toggleDropdown);
 window.addEventListener("click", closeDropdown);
 
+// ============== Selected Item ====================
 /*  
 * DOCU: Extracts the product ID from the current page URL query string.
 * It looks for the "id" parameter and converts its value into a number.
@@ -22,22 +23,36 @@ window.addEventListener("click", closeDropdown);
 * Author: Kerzania  
 */
 function getProductIdFromURL() {
-  const query = window.location.search; //output sample: "?id=2"
+    const query = window.location.search; //output sample: "?id=2"
 
-  if (!query) return null;
+    if (!query) return null;
 
-  const queryParts = query.substring(1).split("&");
-  for (let i = 0; i < queryParts.length; i++) {
-    const pair = queryParts[i].split("=");
-    const key = pair[0];
-    const value = pair[1];
+    const queryParts = query.substring(1).split("&");
+    for (let i = 0; i < queryParts.length; i++) {
+        const pair = queryParts[i].split("=");
+        const key = pair[0];
+        const value = pair[1];
 
-    if (key === "id") {
-      return Number(value);
+        if (key === "id") {
+            return Number(value);
+        }
     }
-  }
+    
+    return null;
+}
 
-  return null;
+
+function getTotalPrice() {
+    const unitPrice = parseFloat(productPrice.innerText);
+    const safeUnitPrice = Number.isFinite(unitPrice) ? unitPrice : 0;
+
+    const qty = getQty();
+    const total = safeUnitPrice * qty;
+    return total;
+}
+
+function updateTotalPrice() {
+    totalPrice.innerText = getTotalPrice().toFixed(2);
 }
 
 /*  
@@ -53,30 +68,137 @@ function getProductIdFromURL() {
 * Author: Kerzania  
 */
 function displaySelectedProduct() {
-  const productId = getProductIdFromURL();
+    const productId = getProductIdFromURL();
 
-  const product = findProductById(productId);
+    const product = findProductById(productId);
 
-  if (!product) {
-    productName.innerText = "Product not found";
-    return;
-  }
+    if (!product) {
+        productName.innerText = "Product not found";
+        return;
+    }
 
-  mainImage.src = product.image;
-  mainImage.alt = product.name;
-  mainImage.classList.add("main-image")
+    mainImage.src = product.image;
+    mainImage.alt = product.name;
+    mainImage.classList.add("main-image")
 
-  productName.innerText = product.name;
-  productMeta.innerText = `${product.stars} stars • ${product.ratings} Ratings`;
-  productPrice.innerText = Number(product.price).toFixed(2);
-  totalPrice.innerText = Number(product.price).toFixed(2);
+    productName.innerText = product.name;
+    productMeta.innerText = `${product.stars} stars • ${product.ratings} Ratings`;
+    productPrice.innerText = Number(product.price).toFixed(2);
+    updateTotalPrice();
 
   if (productDescription) {
     productDescription.innerText = product.description || "";
   }
 }
 
-displaySelectedProduct();
+// ============== Similar Items ====================
+
+/*  
+* DOCU: Displays similar items based on the selected product's category.
+* It retrieves the selected product from the URL, filters other products
+* in the same category (excluding the current product), then renders them
+* inside the "Similar Items" grid.
+*  
+* @param {none} - This function does not accept any parameter.
+* @returns {void} - This function does not return a value.
+* @throws {none} - This function does not explicitly throw errors.
+*
+* Last Updated: 2026-02-14  
+* Author: Kerzania  
+*/
+function displaySimilarItems() {
+    const grid = document.querySelector(".similar-items .product-grid");
+    const section = document.querySelector(".similar-items");
+
+    if (!grid) return;
+
+    //clear placeholder content first
+    grid.innerHTML = "";
+
+    const productId = getProductIdFromURL();
+    const selectedProduct = findProductById(productId);
+
+    if (!selectedProduct) {
+        if (section) section.style.display = "none";
+        return;
+    }
+
+    const similarProducts = PRODUCTS.filter(function (product) {
+        return (
+            product &&
+            product.category === selectedProduct.category &&
+            product.id !== selectedProduct.id
+        );
+    });
+
+    if (similarProducts.length === 0) {
+        if (section) section.style.display = "none";
+        return;
+    }
+
+    similarProducts.forEach(function (product) {
+        grid.appendChild(createProductCard(product));
+    });
+}
+
+/*  
+* DOCU: Creates a product card element for use in grids.
+*  
+* @param {Object} product - The product object to render.
+* @returns {HTMLAnchorElement} - The fully built product card element.
+* @throws {none} - This function does not explicitly throw errors.
+*
+* Last Updated: 2026-02-14  
+* Author: Kerzania  
+*/
+function createProductCard(product) {
+    const card = document.createElement("a");
+    card.href = `product-view.html?id=${product.id}`;
+    card.classList.add("product-card");
+
+    const thumbDiv = document.createElement("div");
+    thumbDiv.classList.add("product-thumb");
+
+    const image = document.createElement("img");
+    image.src = product.image || DEFAULT_PRODUCT_IMAGE_SRC;
+    image.alt = product.name || "Product image";
+    image.classList.add("product-image");
+
+    thumbDiv.appendChild(image);
+
+    const infoDiv = document.createElement("div");
+    infoDiv.classList.add("product-info");
+
+    const infoDetails = document.createElement("div");
+
+    const name = document.createElement("h3");
+    name.classList.add("product-name");
+    name.innerText = product.name || "Unnamed product";
+
+    const meta = document.createElement("p");
+    meta.classList.add("product-meta");
+    meta.innerText = `${product.stars ?? 0} stars • ${product.ratings ?? 0} Ratings`;
+
+    infoDetails.appendChild(name);
+    infoDetails.appendChild(meta);
+
+    const price = document.createElement("p");
+    price.classList.add("product-price");
+    price.innerText = `$${Number(product.price || 0).toFixed(2)}`;
+
+    infoDiv.appendChild(infoDetails);
+    infoDiv.appendChild(price);
+
+    card.appendChild(thumbDiv);
+    card.appendChild(infoDiv);
+
+    return card;
+}
+
+function addToCart() {
+    //no function yet
+}
+
 
 /*
  * DOCU: Toggles the visibility of the user dropdown menu when the avatar is clicked.
@@ -113,19 +235,25 @@ function closeDropdown(event) {
   }
 }
 
+
+function getQty() {
+    return Math.max(1, parseInt(document.getElementById("qty").value, 10) || 1);
+}
+
 /*
  * DOCU: Updates the quantity input when the user clicks the plus/minus buttons.
  * @param {number} step - The value to add to the current quantity (ex: -1 or 1).
  * @returns {void} - Does not return a value.
  * @throws {None} - No exceptions are thrown.
  *
- * Last Updated: 2026-02-11
+ * Last Updated: 2026-02-14
  * Author: Jheanne A. Salan
- * Last Updated By: Jheanne A. Salan
+ * Last Updated By: Kerzania
  */
 function changeQty(step) {
-  const qtyInput = document.getElementById("qty");
-  const current = parseInt(qtyInput.value, 10) || 1;
-  const next = Math.max(1, current + step);
-  qtyInput.value = next;
+    document.getElementById("qty").value = Math.max(1, getQty() + step);
+    updateTotalPrice();
 }
+
+displaySelectedProduct();
+displaySimilarItems();
