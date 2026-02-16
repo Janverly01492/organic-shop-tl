@@ -6,37 +6,7 @@ const paginationContainer = document.querySelector(".pagination");
 const categoryList = document.getElementById("categories-list");
 const searchBar = document.querySelector(".search-bar");
 
-const PAGE_SIZE = 14;
-
-/*  
- * DOCU: Initializes and controls the hamburger menu toggle behavior.
- * It listens for clicks on the menu button to open/close the sidebar drawer,
- * and listens for clicks on the overlay to close the sidebar.
- *  
- * @param {none} - This block does not accept any parameters.
- * @returns {void} - Does not return any value.
- * @throws {None} - No exceptions are explicitly thrown.
- *  
- * Last Updated: 2026-02-15
- * Author: Jheanne A. Salan
- * Last Updated By: Jheanne A. Salan
- */
-
-// Hamburger Menu Function 
-const menuBtn = document.getElementById("menuBtn");
-const overlay = document.getElementById("overlay");
-
-if (menuBtn && overlay) {
-    menuBtn.addEventListener("click", () => {
-        document.body.classList.toggle("menu-open");
-    });
-
-    overlay.addEventListener("click", () => {
-        document.body.classList.remove("menu-open");
-    });
-}
-
-
+const PAGE_SIZE = 10;
 
 /*  
  * DOCU: Renders category buttons into the categories list container.
@@ -195,22 +165,20 @@ function renderProducts(products) {
 
     products.forEach(function (product) {
 
-        // Creating the html elements for each product card
         const card = document.createElement("a");
         card.href = `product-view.html?id=${product.id}`;
         const thumbDiv = document.createElement("div");
         const image = document.createElement("img");
-        thumbDiv.appendChild(image); // Put inside the thumbnail
+        thumbDiv.appendChild(image);
         const infoDiv = document.createElement("div");
         const infoLeft = document.createElement("div");
         const name = document.createElement("h3");
         const meta = document.createElement("p");
-        infoLeft.append(name, meta); // Put inside the info left
+        infoLeft.append(name, meta); 
         const price = document.createElement("p");
-        infoDiv.append(infoLeft, price); // Put inside the info container
-        card.append(thumbDiv, infoDiv); // Put inside the card
+        infoDiv.append(infoLeft, price); 
+        card.append(thumbDiv, infoDiv); 
 
-        // Here you can put classes to each element if you want, for styling purposes
         card.classList.add("product-card");
         thumbDiv.classList.add("product-thumb");
         image.classList.add("product-image");
@@ -225,7 +193,7 @@ function renderProducts(products) {
         image.alt = product.name;
         name.innerText = product.name;
         meta.innerText = `${product.stars} stars • ${product.ratings} Ratings`;
-        price.innerText = `$${Number(product.price).toFixed(2)}`;
+        price.innerText = `₱${Number(product.price).toFixed(2)}`;
 
         // Append to container
         productContainer.appendChild(card);
@@ -304,10 +272,7 @@ function renderPagination(totalPages, activePage, productList) {
     const prevBtn = document.createElement("button");
     prevBtn.type = "button";
 
-    // Here you can put classes to the element if you want, for styling purposes
     prevBtn.classList.add("page-btn");
-
-    // Set the content of the element
     prevBtn.innerText = "<";
     prevBtn.disabled = activePage === 1;
 
@@ -322,11 +287,7 @@ function renderPagination(totalPages, activePage, productList) {
 
         const btn = document.createElement("button");
         btn.type = "button";
-
-        // Here you can put classes to the element if you want, for styling purposes
         btn.classList.add("page-btn");
-
-        // Set the content of the element
         btn.innerText = page;
 
         if (page === activePage) {
@@ -340,14 +301,9 @@ function renderPagination(totalPages, activePage, productList) {
         paginationContainer.appendChild(btn);
     }
 
-    // Creating the html element for the next button
     const nextBtn = document.createElement("button");
     nextBtn.type = "button";
-
-    // Here you can put classes to the element if you want, for styling purposes
     nextBtn.classList.add("page-btn");
-
-    // Set the content of the element
     nextBtn.innerText = ">";
     nextBtn.disabled = activePage === totalPages;
 

@@ -4,19 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
+    <title>Cart</title>
 
     <link rel="stylesheet" href="css/shared-components.css">
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/modals/check-out.css">
 
-     <!-- Bootstrap Icon -->
+    <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/modals/signup.css">
     <link rel="stylesheet" href="css/modals/login.css">
 </head>
@@ -27,8 +28,9 @@
 
         <nav>
             <ul>
-                <li><a href="dashboard.html"><img src="assets/icons/home-icon.svg" alt="Home icon"></a></li>
-                <li><a href="cart.html"><img src="assets/icons/cart-icon.svg" alt="Cart icon"></a></li>
+                <li><a href="dashboard.html"><img src="assets/icons/home-icon-5A3D2B.svg" alt="Home icon"></a></li>
+                <li><a href="cart.html"><img src="assets/icons/cart-icon-5A3D2B.svg" alt="Cart icon"></a></li>
+
             </ul>
         </nav>
     </aside>
@@ -40,7 +42,7 @@
             <div>
                 <div class="logo-container">
                     <img src="assets/icons/coffee-gif.gif" alt="Dashboard Logo" class="dashboard-logo">
-                    <p>Let's order fresh items for you.</p> 
+                    <p>Make time for good coffee</p>
                 </div>
 
                 <div class="header-actions">
@@ -55,7 +57,7 @@
                 </div>
 
                 <!-- After the user's logged in -->
-                <div class="user-container" id="user-profile" style="display: none;">
+                <div class="user-container hidden" id="user-profile">
                     <span id="user-display-name"></span>
                     <div class="dropdown">
                         <img src="assets/img/coffee-oclock.png" alt="User Profile" class="avatar" id="avatar">
@@ -72,7 +74,6 @@
                 <input type="text" placeholder="Search for products..." class="search-bar">
             </form>
 
-            <a href="cart.html"><i class="bi bi-cart4"></i> Cart</a>
         </section>
 
         <!-- unique content per page -->
@@ -87,7 +88,7 @@
                             <img src="${item.image}" alt="${item.name}">
                             <div class="cart-item-info">
                                 <h3>${item.name}</h3>
-                                <span class="cart-item-price">$${item.price.toFixed(2)}</span>
+                                <span class="cart-item-price">₱${item.price.toFixed(2)}</span>
                             </div>
                             <div class="cart-qty">
                                 <label>Quantity</label>
@@ -97,7 +98,7 @@
                             </div>
                             <div class="cart-item-total">
                                 <label>Total</label>
-                                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                                <span>₱${(item.price * item.quantity).toFixed(2)}</span>
                             </div>
                             <button type="button">&times;</button>
                         </li> -->
@@ -146,7 +147,7 @@
         </main>
     </div>
 
-    <!-- modals -->
+    <!--Checkout modal -->
     <div id="check-out-modal-container">
         <div id="check-out-container">
             <button class="close-btn" type="button">&times;</button>
@@ -178,30 +179,14 @@
                 </div>
                 <div class="total">
                     <span>Total Amount:</span>
-                    <span id="total-amount-modal">$100</span>
+                    <span id="total-amount-modal">₱100</span>
                 </div>
                 <button type="submit">Pay</button>
             </form>
         </div>
-        </div>
     </div>
 
-    <!-- modals -->
-    <div id="notification-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
-        <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; max-width: 300px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <div style="font-size: 48px; color: #4CAF50; margin-bottom: 10px;">
-                <i class="bi bi-check-circle-fill"></i>
-            </div>
-            <h3 style="margin: 0 0 10px 0; color: #333;">Order Successful!</h3>
-            <p style="margin: 0 0 20px 0; color: #666;">Your order has been placed successfully.</p>
-            <button id="close-notification-btn" style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px;">OK</button>
-        </div>
-    </div>
-
-
-
-
-
+    <script src="js/shared.js"></script>
     <script src="js/products.data.js"></script>
     <script src="js/cart-modal.js"></script>
     <script src="js/cart.js"></script>

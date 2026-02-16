@@ -25,36 +25,6 @@ const SHIPPING_FEE = 49;
 
 
 /*  
- * DOCU: Initializes and controls the hamburger menu toggle behavior.
- * It listens for clicks on the menu button to open/close the sidebar drawer,
- * and listens for clicks on the overlay to close the sidebar.
- *  
- * @param {none} - This block does not accept any parameters.
- * @returns {void} - Does not return any value.
- * @throws {None} - No exceptions are explicitly thrown.
- *  
- * Last Updated: 2026-02-15
- * Author: Jheanne A. Salan
- * Last Updated By: Jheanne A. Salan
- */
-
-// Hamburger Menu Function 
-const menuBtn = document.getElementById("menuBtn");
-const overlay = document.getElementById("overlay");
-
-if (menuBtn && overlay) {
-    menuBtn.addEventListener("click", () => {
-        document.body.classList.toggle("menu-open");
-    });
-
-    overlay.addEventListener("click", () => {
-        document.body.classList.remove("menu-open");
-    });
-}
-
-
-
-/*  
  * DOCU: Convert a currency string like "₱100.00" to a number 100  
  * @param {string} str - Currency string to convert  
  * @returns {number} - Numeric value of the currency  
@@ -70,7 +40,7 @@ function numberToCurrency(num) {
 
 // cart logic
 function loadCart() {
-    const cart = JSON.parse(localStorage.getItem('organic_shop_cart')) || [];
+    const cart = getCartFromStorage();
     cartContainer.innerHTML = '';
 
     if (cart.length === 0) {
@@ -88,7 +58,7 @@ function loadCart() {
             <img src="${item.image}" alt="${item.name}">
             <div class="cart-item-info">
                 <h3>${item.name}</h3>
-                <span class="cart-item-price">$${Number(item.price).toFixed(2)}</span>
+                <span class="cart-item-price">₱${Number(item.price).toFixed(2)}</span>
             </div>
             <div class="cart-qty">
                 <label>Quantity</label>
@@ -98,7 +68,7 @@ function loadCart() {
             </div>
             <div class="cart-item-total">
                 <label>Total</label>
-                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                <span>₱${(item.price * item.quantity).toFixed(2)}</span>
             </div>
             <button type="button" class="cart-remove-btn">&times;</button>
         `;
@@ -108,29 +78,18 @@ function loadCart() {
     updateOrderSummary();
 }
 
-function saveCart() {
-    const cartItems = [];
-    const items = cartContainer.querySelectorAll('.cart-item');
-    
-    items.forEach(item => {
-        const name = item.querySelector('h3').textContent;
-        const price = stringToNumber(item.querySelector('.cart-item-price').textContent);
-        const image = item.querySelector('img').src;
-        const qty = parseInt(item.querySelector('.cart-qty-value').value);
-    });
-}
-
 function updateCartStorage(index, newQty) {
-    const cart = JSON.parse(localStorage.getItem('organic_shop_cart')) || [];
+    const cart = getCartFromStorage();
     if (index >= 0 && index < cart.length) {
         if (newQty <= 0) {
             cart.splice(index, 1);
         } else {
             cart[index].quantity = newQty;
         }
-        localStorage.setItem('organic_shop_cart', JSON.stringify(cart));
+        setCartToStorage(cart);
     }
-    loadCart(); 
+    updateCartCountBadge();
+    loadCart();adasd
 }
 
 function updateOrderSummary() {
@@ -147,7 +106,7 @@ function updateOrderSummary() {
         let qty = parseInt(qtyEl.value) || 1; // Changed to .value for input
         const price = stringToNumber(priceEl.textContent);
 
-        totalEl.textContent = `$${(price * qty).toFixed(2)}`;
+        totalEl.textContent = `₱${(price * qty).toFixed(2)}`;
 
         itemCount += qty;
         subtotal += price * qty;
@@ -203,23 +162,13 @@ if (paymentForm) {
         document.body.classList.remove('modal-open');       
 
         // Clear cart
-        localStorage.removeItem('organic_shop_cart');
+        clearCartStorage();
+        updateCartCountBadge();
         loadCart();
 
-        // Show Success Modal
-        const successModal = document.getElementById('notification-modal');
-        if (successModal) {
-            successModal.style.display = 'flex';
-        }
+        // Show Success Notification
+        showNotification("Order Successful!", "Your order has been placed successfully.");
     });
-
-    // Close notification modal listener
-    const closeNotifBtn = document.getElementById('close-notification-btn');
-    if (closeNotifBtn) {
-        closeNotifBtn.addEventListener('click', function() {
-            document.getElementById('notification-modal').style.display = 'none';
-        });
-    }
 }
 
 /*
@@ -241,7 +190,7 @@ function checkUrlForNewItem() {
         const product = findProductById(id);
         
         if (product) {
-            let cart = JSON.parse(localStorage.getItem('organic_shop_cart')) || [];
+            let cart = getCartFromStorage();
             const existingProductIndex = cart.findIndex(item => item.id === product.id);
 
             if (existingProductIndex > -1) {
@@ -255,7 +204,8 @@ function checkUrlForNewItem() {
                     quantity: qty
                 });
             }
-            localStorage.setItem('organic_shop_cart', JSON.stringify(cart));
+            setCartToStorage(cart);
+            updateCartCountBadge();
             
             const url = new URL(window.location);
             url.searchParams.delete('action');

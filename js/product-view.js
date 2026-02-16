@@ -6,38 +6,6 @@ const productPrice = document.getElementById("productPrice");
 const productDescription = document.getElementById("productDescription");
 const totalPrice = document.getElementById("totalPrice");
 
-/*  
- * DOCU: Initializes and controls the hamburger menu toggle behavior.
- * It listens for clicks on the menu button to open/close the sidebar drawer,
- * and listens for clicks on the overlay to close the sidebar.
- *  
- * @param {none} - This block does not accept any parameters.
- * @returns {void} - Does not return any value.
- * @throws {None} - No exceptions are explicitly thrown.
- *  
- * Last Updated: 2026-02-15
- * Author: Jheanne A. Salan
- * Last Updated By: Jheanne A. Salan
- */
-
-// Hamburger Menu Function 
-const menuBtn = document.getElementById("menuBtn");
-const overlay = document.getElementById("overlay");
-
-if (menuBtn && overlay) {
-    menuBtn.addEventListener("click", () => {
-        document.body.classList.toggle("menu-open");
-    });
-
-    overlay.addEventListener("click", () => {
-        document.body.classList.remove("menu-open");
-    });
-}
-
-
-// Event Listeners
-document.getElementById("avatar").addEventListener("click", toggleDropdown);
-window.addEventListener("click", closeDropdown);
 
 // ============== Selected Item ====================
 /*  
@@ -213,7 +181,7 @@ function createProductCard(product) {
 
     const price = document.createElement("p");
     price.classList.add("product-price");
-    price.innerText = `$${Number(product.price || 0).toFixed(2)}`;
+    price.innerText = `₱${Number(product.price || 0).toFixed(2)}`;
 
     infoDiv.appendChild(infoDetails);
     infoDiv.appendChild(price);
@@ -254,7 +222,7 @@ function addToCart() {
 
     const quantity = getQty();
 
-    let cart = JSON.parse(localStorage.getItem('organic_shop_cart')) || [];
+    let cart = getCartFromStorage();
 
     const existingProductIndex = cart.findIndex(item => item.id === product.id);
 
@@ -270,23 +238,15 @@ function addToCart() {
         });
     }
 
-    localStorage.setItem('organic_shop_cart', JSON.stringify(cart));
+    setCartToStorage(cart);
 
-    const modal = document.getElementById('notification-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-        
-        const msg = modal.querySelector('p');
-        if (msg) msg.innerText = `${product.name} (x${quantity}) has been added to cart.`;
-    } else {
-        alert(`${product.name} (x${quantity}) added to cart!`);
+    if (typeof updateCartCountBadge === "function") {
+        updateCartCountBadge();
     }
+
+    showNotification("Item Added!", `${product.name} (x${quantity}) has been added to cart.`);
 }
 
-// Close Modal Logic
-document.getElementById('close-notification-btn')?.addEventListener('click', function() {
-    document.getElementById('notification-modal').style.display = 'none';
-});
 
 
 /*
@@ -299,31 +259,6 @@ document.getElementById('close-notification-btn')?.addEventListener('click', fun
  * Author: Jheanne A. Salan
  * Last Updated By: Jheanne A. Salan
  */
-function toggleDropdown(event) {
-  const dropdown = document.getElementById("dropdownMenu");
-  dropdown.classList.toggle("show");
-  event.stopPropagation(); // Prevents event from bubbling to window
-}
-
-/*
- * DOCU: Closes the dropdown menu when the user clicks outside of it.
- * @param {MouseEvent} event - The click event triggered anywhere on the window.
- * @returns {void} - Does not return a value.
- * @throws {None} - No exceptions are thrown.
- *
- * Last Updated: 2026-02-11
- * Author: Jheanne A. Salan
- * Last Updated By: Jheanne A. Salan
- */
-function closeDropdown(event) {
-  const avatar = document.getElementById("avatar");
-  const dropdown = document.getElementById("dropdownMenu");
-
-  if (!avatar.contains(event.target) && !dropdown.contains(event.target)) {
-    dropdown.classList.remove("show");
-  }
-}
-
 
 function getQty() {
     return Math.max(1, parseInt(document.getElementById("qty").value, 10) || 1);
@@ -384,7 +319,10 @@ displaySimilarItems();
         searchResultsDropdown.innerHTML = '';
         
         if (results.length === 0) {
-            searchResultsDropdown.innerHTML = '<div style="padding: 15px; text-align: center; color: #666;">No products found</div>';
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = 'No products found';
+            searchResultsDropdown.appendChild(noResults);
             searchResultsDropdown.style.display = 'block';
             return;
         }
@@ -392,31 +330,22 @@ displaySimilarItems();
         results.forEach(function(product) {
             const resultItem = document.createElement('a');
             resultItem.href = 'product-view.html?id=' + product.id;
-            resultItem.style.cssText = 'display: flex; align-items: center; padding: 12px 15px; text-decoration: none; color: #333; border-bottom: 1px solid #f0f0f0; transition: background-color 0.2s;';
-            
-            resultItem.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = '#f8f8f8';
-            });
-            
-            resultItem.addEventListener('mouseleave', function() {
-                this.style.backgroundColor = 'white';
-            });
+            resultItem.className = 'search-result-item';
 
             const img = document.createElement('img');
             img.src = product.image;
             img.alt = product.name;
-            img.style.cssText = 'width: 50px; height: 50px; object-fit: cover; border-radius: 8px; margin-right: 12px;';
 
             const infoDiv = document.createElement('div');
-            infoDiv.style.cssText = 'flex: 1;';
+            infoDiv.className = 'search-result-info';
 
             const nameEl = document.createElement('div');
             nameEl.textContent = product.name;
-            nameEl.style.cssText = 'font-weight: 600; margin-bottom: 4px;';
+            nameEl.className = 'search-result-name';
 
             const priceEl = document.createElement('div');
-            priceEl.textContent = '$' + Number(product.price).toFixed(2);
-            priceEl.style.cssText = 'color: #4CAF50; font-size: 14px;';
+            priceEl.textContent = formatPrice(product.price);
+            priceEl.className = 'search-result-price';
 
             infoDiv.appendChild(nameEl);
             infoDiv.appendChild(priceEl);

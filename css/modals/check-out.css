@@ -52,34 +52,20 @@
     color: #6f4e37;
 }
 
-/* Logos */
-.brand-logos {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-}
-
-.brand-logos img {
-    max-height: 50px;
-    width: auto;
-    object-fit: contain;
-}
-
 /* Form */
-form {
+#check-out-container form {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.column {
+#check-out-container .column {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-input {
+#check-out-container input {
     width: 100%;
     padding: 12px 14px;
     border: 1.5px solid #ddd;
@@ -92,11 +78,11 @@ input {
     transition: border-color 0.2s ease;
 }
 
-input::placeholder {
+#check-out-container input::placeholder {
     color: #cbb7a6;
 }
 
-input:focus {
+#check-out-container input:focus {
     border-color: #6c63ff;
 }
 

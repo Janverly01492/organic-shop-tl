@@ -50,10 +50,7 @@
     flex: 1;
 }
 
-/* #signup-container img {
-    display: flex;
-    justify-content: right;
-} */
+
 
 #signup-container>div>div {
     display: flex;
@@ -86,7 +83,7 @@
     gap: 5px;
 }
 
-#signup-container>div form button {
+#signup-container>div form button:not(.toggle-password) {
     align-self: center;
     padding: 10px 30px;
     border: none;
@@ -97,7 +94,7 @@
     transition: all 0.2s ease;
 }
 
-#signup-container>div form button:hover {
+#signup-container>div form button:not(.toggle-password):hover {
     cursor: pointer;
     background-color: #7F5539;
     color: #d9ccbf;
@@ -107,10 +104,6 @@ img.side-image-sign {
     width: 25%;
     object-fit: cover;
     border-radius: 0 5px 5px 0;
-}
-
-.brand-logo {
-    width: 80px;
 }
 
 .signup-information {

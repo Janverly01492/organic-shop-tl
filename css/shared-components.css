@@ -219,27 +219,118 @@ a.cart-btn:hover {
     transform: scale(1.08);
 }
 
+/* ============= HAMBURGER MENU ============= */
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 9;
+}
+
+.menu-btn {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid #d8c1ab;
+    background: #fff;
+    color: #5A3D2B;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 /* ============= RESPONSIVE ============= */
 
 /* Tablet */
 @media (max-width: 1024px) and (min-width: 768px) {
     aside {
-        display: none;
+        display: flex;
+        width: 90px;
+        align-items: flex-start;
+        padding: 16px;
+        transform: translateX(-110%);
+        transition: transform 0.25s ease;
+        z-index: 10;
     }
 
     .page-content {
         margin-left: 0;
+    }
+
+    .menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    body.menu-open aside {
+        transform: translateX(0);
+    }
+
+    body.menu-open .overlay {
+        display: block;
+    }
+
+    aside nav ul {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    aside nav ul li a {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    aside nav ul li a img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .official-logo {
+        width: 60px;
     }
 }
 
 /* Phone */
 @media (max-width: 767px) {
     aside {
-        display: none;
+        display: flex;
+        width: 90px;
+        align-items: flex-start;
+        padding: 16px;
+        transform: translateX(-110%);
+        transition: transform 0.25s ease;
+        z-index: 10;
+        background: #fff;
     }
 
     .page-content {
         margin-left: 0;
+    }
+
+    .menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    body.menu-open aside {
+        transform: translateX(0);
+    }
+
+    body.menu-open .overlay {
+        display: block;
     }
 
     header>div {
@@ -271,5 +362,148 @@ a.cart-btn:hover {
         font-size: 12px;
         font-weight: 400;
     }
+}
 
+/* ============= UTILITY CLASSES ============= */
+.hidden {
+    display: none !important;
+}
+
+/* ============= MODAL OPEN STATE ============= */
+body.modal-open {
+    overflow: hidden;
+}
+
+body.modal-open > :not(#signup-modal-container):not(#login-modal-container):not(#check-out-modal-container) {
+    filter: blur(3px);
+    transition: filter 0.2s ease;
+}
+
+/* ============= TOGGLE PASSWORD ============= */
+.toggle-password {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+/* ============= SEARCH RESULTS DROPDOWN ============= */
+.search-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.search-results-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+}
+
+.search-results-dropdown .search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+.search-results-dropdown .search-result-item:hover {
+    background-color: #f8f8f8;
+}
+
+.search-results-dropdown .search-result-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+.search-results-dropdown .search-result-info {
+    flex: 1;
+}
+
+.search-results-dropdown .search-result-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.search-results-dropdown .search-result-price {
+    color: #4CAF50;
+    font-size: 14px;
+}
+
+.search-results-dropdown .no-results {
+    padding: 15px;
+    text-align: center;
+    color: #666;
+}
+
+/* ============= NOTIFICATION MODAL ============= */
+.notification-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-overlay.active {
+    display: flex;
+}
+
+.notification-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notification-icon {
+    font-size: 48px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.notification-title {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.notification-text {
+    margin: 0 0 20px 0;
+    color: #666;
+}
+
+.notification-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
 }

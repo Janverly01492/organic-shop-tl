@@ -1,7 +1,7 @@
 // Constants
 const cartModal = document.getElementById('check-out-modal-container');
 const cartBtn = document.getElementById('checkoutBtn');
-const closeCartBtn = document.querySelector('.close-btn');
+const closeCartBtn = cartModal ? cartModal.querySelector('.close-btn') : null;
 
 /*  
  * DOCU: Hides the cart modal and removes the modal-open class from body
@@ -33,7 +33,7 @@ cartBtn.addEventListener('click', function () {
         return;
     }
 
-    const cart = JSON.parse(localStorage.getItem('organic_shop_cart')) || [];
+    const cart = getCartFromStorage();
     if (cart.length === 0) {
         alert("Your cart is empty! Please add items to your cart before checking out.");
         return;
