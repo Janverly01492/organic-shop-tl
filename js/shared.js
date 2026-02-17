@@ -123,7 +123,18 @@ function initHamburgerMenu() {
  * Author: Kerzania
  * Last Updated by: Kerzania
  */
-function showNotification(title, message) {
+function showNotification(title, message, type, onClose) {
+    // Default type to "success" if not provided
+    type = type || "success";
+
+    // Map type to icon class and CSS modifier
+    var iconMap = {
+        success: "bi bi-check-circle-fill",
+        warning: "bi bi-exclamation-triangle-fill",
+        error: "bi bi-x-circle-fill",
+        info: "bi bi-info-circle-fill"
+    };
+
     // Remove any existing notification
     const existing = document.getElementById("notification-modal");
     if (existing) existing.remove();
@@ -135,12 +146,12 @@ function showNotification(title, message) {
 
     // Create content container
     const content = document.createElement("div");
-    content.className = "notification-content";
+    content.className = "notification-content notification-" + type;
 
     // Icon
     const icon = document.createElement("div");
     icon.className = "notification-icon";
-    icon.innerHTML = '<i class="bi bi-check-circle-fill"></i>';
+    icon.innerHTML = '<i class="' + (iconMap[type] || iconMap.success) + '"></i>';
 
     // Title
     const heading = document.createElement("h3");
@@ -158,6 +169,9 @@ function showNotification(title, message) {
     btn.textContent = "OK";
     btn.addEventListener("click", function () {
         overlay.remove();
+        if (typeof onClose === "function") {
+            onClose();
+        }
     });
 
     content.appendChild(icon);

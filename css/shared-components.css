@@ -137,7 +137,7 @@ header>div {
 
 .avatar {
     width: 48px;
-    height: 40px;
+    height: 48px;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -374,7 +374,7 @@ body.modal-open {
     overflow: hidden;
 }
 
-body.modal-open > :not(#signup-modal-container):not(#login-modal-container):not(#check-out-modal-container) {
+body.modal-open> :not(#signup-modal-container):not(#login-modal-container):not(#check-out-modal-container) {
     filter: blur(3px);
     transition: filter 0.2s ease;
 }
@@ -474,36 +474,81 @@ body.modal-open > :not(#signup-modal-container):not(#login-modal-container):not(
 }
 
 .notification-content {
-    background: white;
+    background: #FBF6F0;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     max-width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d9b7a0;
+    box-shadow: 0 10px 24px rgba(90, 61, 43, 0.18);
 }
 
 .notification-icon {
     font-size: 48px;
-    color: #4CAF50;
+    color: #6B8E5A;
     margin-bottom: 10px;
 }
 
 .notification-title {
     margin: 0 0 10px 0;
-    color: #333;
+    color: #5A3D2B;
 }
 
 .notification-text {
     margin: 0 0 20px 0;
-    color: #666;
+    color: #6F4E37;
 }
 
 .notification-btn {
-    background: #4CAF50;
-    color: white;
+    background: #5A3D2B;
+    color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.notification-btn:hover {
+    background: #7F5539;
+}
+
+/* Warning type */
+.notification-warning .notification-icon {
+    color: #C8893C;
+}
+
+.notification-warning .notification-btn {
+    background: #C8893C;
+}
+
+.notification-warning .notification-btn:hover {
+    background: #a06b45;
+}
+
+/* Error type */
+.notification-error .notification-icon {
+    color: #d32f2f;
+}
+
+.notification-error .notification-btn {
+    background: #d32f2f;
+}
+
+.notification-error .notification-btn:hover {
+    background: #b71c1c;
+}
+
+/* Info type */
+.notification-info .notification-icon {
+    color: #7F5539;
+}
+
+.notification-info .notification-btn {
+    background: #7F5539;
+}
+
+.notification-info .notification-btn:hover {
+    background: #5A3D2B;
 }
