@@ -49,6 +49,12 @@ img.brand-logo {
     width: 100px;
 }
 
+.logo-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
 /* ================= CART SECTION ================= */
 .cart-items {
     background: var(--color-white);
