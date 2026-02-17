@@ -174,10 +174,10 @@ function renderProducts(products) {
         const infoLeft = document.createElement("div");
         const name = document.createElement("h3");
         const meta = document.createElement("p");
-        infoLeft.append(name, meta); 
+        infoLeft.append(name, meta);
         const price = document.createElement("p");
-        infoDiv.append(infoLeft, price); 
-        card.append(thumbDiv, infoDiv); 
+        infoDiv.append(infoLeft, price);
+        card.append(thumbDiv, infoDiv);
 
         card.classList.add("product-card");
         thumbDiv.classList.add("product-thumb");
@@ -315,3 +315,4 @@ function renderPagination(totalPages, activePage, productList) {
 }
 
 goToPage(1);
+updateCartCountBadge();

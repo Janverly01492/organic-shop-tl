@@ -213,10 +213,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (logoutBtn) {
         logoutBtn.addEventListener("click", function (e) {
             e.preventDefault();
-            alert("You have been logged out.");
-            const currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.delete("user");
-            window.location.href = currentUrl.toString();
+            showNotification("Logged Out", "You have been logged out.", "info", function () {
+                const currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.delete("user");
+                window.location.href = currentUrl.toString();
+            });
         });
     }
 

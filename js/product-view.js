@@ -34,7 +34,7 @@ function getProductIdFromURL() {
             return Number(value);
         }
     }
-    
+
     return null;
 }
 
@@ -83,9 +83,9 @@ function displaySelectedProduct() {
     productPrice.innerText = Number(product.price).toFixed(2);
     updateTotalPrice();
 
-  if (productDescription) {
-    productDescription.innerText = product.description || "";
-  }
+    if (productDescription) {
+        productDescription.innerText = product.description || "";
+    }
 }
 
 // ============== Similar Items ====================
@@ -206,9 +206,9 @@ function createProductCard(product) {
 function addToCart() {
     const urlParams = new URLSearchParams(window.location.search);
     const userName = urlParams.get("user");
-    
+
     if (!userName) {
-        alert("Please log in or sign up to add items to your cart.");
+        showNotification("Login Required", "Please log in or sign up to add items to your cart.", "warning");
         return;
     }
 
@@ -216,7 +216,7 @@ function addToCart() {
     const product = findProductById(productId);
 
     if (!product) {
-        alert("Error: Product not found!");
+        showNotification("Error", "Product not found!", "error");
         return;
     }
 
@@ -293,7 +293,7 @@ displaySimilarItems();
 (function initializeProductSearch() {
     const searchBar = document.getElementById('product-search-bar');
     const searchResultsDropdown = document.getElementById('search-results-dropdown');
-    
+
     if (!searchBar || !searchResultsDropdown) return;
 
     /*  
@@ -303,9 +303,9 @@ displaySimilarItems();
      */
     function searchProducts(query) {
         if (!query || query.trim() === '') return [];
-        
+
         const lowerQuery = query.toLowerCase().trim();
-        return PRODUCTS.filter(function(product) {
+        return PRODUCTS.filter(function (product) {
             return product.name.toLowerCase().includes(lowerQuery);
         });
     }
@@ -317,7 +317,7 @@ displaySimilarItems();
      */
     function displaySearchResults(results) {
         searchResultsDropdown.innerHTML = '';
-        
+
         if (results.length === 0) {
             const noResults = document.createElement('div');
             noResults.className = 'no-results';
@@ -327,7 +327,7 @@ displaySimilarItems();
             return;
         }
 
-        results.forEach(function(product) {
+        results.forEach(function (product) {
             const resultItem = document.createElement('a');
             resultItem.href = 'product-view.html?id=' + product.id;
             resultItem.className = 'search-result-item';
@@ -359,9 +359,9 @@ displaySimilarItems();
         searchResultsDropdown.style.display = 'block';
     }
 
-    searchBar.addEventListener('input', function(e) {
+    searchBar.addEventListener('input', function (e) {
         const query = e.target.value;
-        
+
         if (!query || query.trim() === '') {
             searchResultsDropdown.style.display = 'none';
             return;
@@ -371,13 +371,13 @@ displaySimilarItems();
         displaySearchResults(results);
     });
 
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (!searchBar.contains(e.target) && !searchResultsDropdown.contains(e.target)) {
             searchResultsDropdown.style.display = 'none';
         }
     });
 
-    searchBar.addEventListener('focus', function(e) {
+    searchBar.addEventListener('focus', function (e) {
         if (e.target.value.trim() !== '') {
             const results = searchProducts(e.target.value);
             displaySearchResults(results);

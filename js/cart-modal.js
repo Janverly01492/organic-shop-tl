@@ -27,15 +27,15 @@ const shippingForm = document.getElementById('shippingForm');
 cartBtn.addEventListener('click', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const userName = urlParams.get("user");
-    
+
     if (!userName) {
-        alert("Please log in or sign up to proceed to checkout.");
+        showNotification("Login Required", "Please log in or sign up to proceed to checkout.", "warning");
         return;
     }
 
     const cart = getCartFromStorage();
     if (cart.length === 0) {
-        alert("Your cart is empty! Please add items to your cart before checking out.");
+        showNotification("Empty Cart", "Your cart is empty! Please add items to your cart before checking out.", "warning");
         return;
     }
 
