@@ -15,11 +15,12 @@
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-   <aside>
+    <aside>
         <a href="dashboard.html"><img src="assets/img/coffee-oclock.png" alt="Dashboard Logo" class="official-logo"></a>
 
         <nav>
@@ -34,30 +35,31 @@
 
     <div class="page-content">
         <header>
-            <div>
+            <div class="topbar">
+                <!-- LEFT: hamburger + branding -->
                 <div class="logo-container">
-                   <img src="assets/icons/coffee-gif.gif" alt="Dashboard Logo" class="dashboard-logo">
+                    <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <img src="assets/icons/coffee-gif.gif" alt="Dashboard Logo" class="dashboard-logo">
                     <p>Make time for good coffee</p>
                 </div>
 
+                <!-- RIGHT: auth OR user -->
                 <div class="header-actions">
                     <div class="link-container" id="auth-links">
                         <button type="button" class="signup-link">SIGN UP</button>
                         <button type="button" class="login-link">LOGIN</button>
                     </div>
 
-                    <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu">
-                        <i class="bi bi-list"></i>
-                    </button>
-                </div>
-
-                <!-- After the user's logged in -->
-                <div class="user-container hidden" id="user-profile">
-                    <span id="user-display-name"></span>
-                    <div class="dropdown">
-                        <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
-                        <div class="dropdown-content" id="dropdownMenu">
-                            <button type="button" id="logout-btn">Logout</button>
+                    <div class="user-container hidden" id="user-profile">
+                        <span id="user-display-name"></span>
+                        <div class="dropdown">
+                            <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
+                            <div class="dropdown-content" id="dropdownMenu">
+                                <button type="button" id="logout-btn">Logout</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,59 +76,82 @@
                 </div>
             </form>
 
-            <a href="cart.html" class="cart-btn"><i class="bi bi-cart4"></i> Cart ( <span class="cart-count">0</span> )</a>
+            <a href="cart.html" class="cart-btn"><i class="bi bi-cart4"></i> Cart ( <span class="cart-count">0</span>
+                )</a>
 
         </section>
 
         <!-- unique content per page -->
         <main>
-            <a href="dashboard.html" class="return-link">&larr; Back</a>
             <section class="product-container">
+                <a href="dashboard.html" class="return-link" aria-label="Go back">
+                    <i class="bi bi-box-arrow-left"></i>
+                </a>
 
-                <div class="image-card">
-                    <img src="assets/img/beta_logo.jpg" alt="Main Image" class="main-image" id="mainImage">
-                </div>
-                
-                <div class="product-description">
-                    <div class="product-content">
-                        <h3 id="productName">Product Name</h3>
-                        <p id="productMeta">5 stars • 999+ Ratings</p>
-                        <h4 class="price-tag">₱<span id="productPrice">9999</span></h4>
-                        <p id="productDescription">
-                            Lorem ipsum dolor sit amet consectetur. Eget sit posuere enim
-                            facilisi. Pretium orci venenatis habitasse gravida nulla tincidunt iaculis. Aliquet at massa
-                            quisque libero viverra ut sed. Est vulputate est rutrum nunc nunc pellentesque ultrices
-                            pharetra. Mauris euismod sed vel quisque tincidunt suspendisse sed turpis volutpat.
-                        </p>
+                <div class="product-left">
+                    <div class="image-card">
+                        <img src="assets/img/beta_logo.jpg" alt="Main Image" class="main-image" id="mainImage">
                     </div>
-                    <div class="purchase-function">
-                        <div class="purchase-group">
-                            <p class="purchase-label">Quantity</p>
-                            <div class="quantity-container">
-                                <button type="button" onclick="changeQty(-1)">-</button>
-                                <input type="text" id="qty" value="1" min="1" disabled>
-                                <button type="button" onclick="changeQty(1)">+</button>
+                </div>
+
+                <div class="product-right">
+                    <div class="product-description">
+                        <div class="product-content">
+                            <div class="title-row">
+                                <h3 id="productName">Product Name</h3>
+                                <span class="price-pill">₱<span id="productPrice">9999</span></span>
+                            </div>
+
+                            <p id="productMeta">5 stars • 999+ Ratings</p>
+
+                            <p id="productDescription">
+                                Lorem ipsum dolor sit amet consectetur. Eget sit posuere enim facilisi. Pretium orci
+                                venenatis habitasse
+                                gravida nulla tincidunt iaculis. Aliquet at massa quisque libero viverra ut sed. Est
+                                vulputate est rutrum
+                                nunc nunc pellentesque ultrices pharetra. Mauris euismod sed vel quisque tincidunt
+                                suspendisse sed turpis
+                                volutpat.
+                            </p>
+                        </div>
+
+                        <div class="purchase-function">
+                            <div class="purchase-card">
+                                <div class="purchase-group">
+                                    <p class="purchase-label">Quantity</p>
+                                    <div class="quantity-container">
+                                        <button type="button" onclick="changeQty(-1)"
+                                            aria-label="Decrease quantity">−</button>
+                                        <input type="text" id="qty" value="1" min="1" disabled>
+                                        <button type="button" onclick="changeQty(1)"
+                                            aria-label="Increase quantity">+</button>
+                                    </div>
+                                </div>
+
+                                <div class="purchase-group">
+                                    <p class="purchase-label">Total Amount</p>
+                                    <p class="total-amount">₱<span id="totalPrice">9999</span></p>
+                                </div>
+
+                                <button type="button" class="add-cart" onclick="addToCart()">
+                                    <i class="bi bi-bag-plus"></i> Add to Cart
+                                </button>
                             </div>
                         </div>
-
-                        <div class="purchase-group">
-                            <p class="purchase-label">Total Amount</p>
-                            <p class="total-amount">₱<span id="totalPrice">9999</span></p>
-                        </div>
-
-                        <button type="button" class="add-cart" onclick="addToCart()">Add to Cart</button>
                     </div>
                 </div>
             </section>
+
 
             <section class="similar-items">
                 <h2>Similar Items</h2>
-
-                <div class="product-grid">
-                    <!-- This is where dynamic similar items go -->
-
+                <div class="similar-scroll">
+                    <div class="product-grid">
+                        <!-- dynamic similar items -->
+                    </div>
                 </div>
             </section>
+
         </main>
     </div>
 

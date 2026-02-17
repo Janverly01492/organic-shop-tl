@@ -39,30 +39,31 @@
 
     <div class="page-content">
         <header>
-            <div>
+            <div class="topbar">
+                <!-- LEFT: hamburger + branding -->
                 <div class="logo-container">
+                    <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu">
+                        <i class="bi bi-list"></i>
+                    </button>
+
                     <img src="assets/icons/coffee-gif.gif" alt="Dashboard Logo" class="dashboard-logo">
                     <p>Make time for good coffee</p>
                 </div>
 
+                <!-- RIGHT: auth OR user -->
                 <div class="header-actions">
                     <div class="link-container" id="auth-links">
                         <button type="button" class="signup-link">SIGN UP</button>
                         <button type="button" class="login-link">LOGIN</button>
                     </div>
 
-                    <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu">
-                        <i class="bi bi-list"></i>
-                    </button>
-                </div>
-
-                <!-- After the user's logged in -->
-                <div class="user-container hidden" id="user-profile">
-                    <span id="user-display-name"></span>
-                    <div class="dropdown">
-                        <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
-                        <div class="dropdown-content" id="dropdownMenu">
-                            <button type="button" id="logout-btn">Logout</button>
+                    <div class="user-container hidden" id="user-profile">
+                        <span id="user-display-name"></span>
+                        <div class="dropdown">
+                            <img src="assets/img/beta_logo.jpg" alt="User Profile" class="avatar" id="avatar">
+                            <div class="dropdown-content" id="dropdownMenu">
+                                <button type="button" id="logout-btn">Logout</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -158,30 +159,33 @@
             <form id="paymentForm">
                 <span>Card Details</span>
                 <div class="column">
-                    <div>
+                    <div class="input-group">
+                        <input id="card-name" name="card-name" type="text" required>
                         <label for="card-name">Card Name</label>
-                        <input id="card-name" name="card-name" type="text" placeholder="Card Name" required>
                     </div>
-                    <div>
+                    <div class="input-group">
+                        <input id="card-number" name="card-number" type="text" required>
                         <label for="card-number">Card Number</label>
-                        <input id="card-number" name="card-number" type="number" placeholder="Card Number" required>
                     </div>
                 </div>
                 <div class="row">
-                    <div>
+                    <div class="input-group half-width">
+                        <input id="expiration" name="expiration" type="text" required>
                         <label for="expiration">Expiration</label>
-                        <input id="expiration" name="expiration" type="text" placeholder="MM/YY" required>
                     </div>
-                    <div>
+                    <div class="input-group half-width">
+                        <input id="cvc" name="cvc" type="text" required>
                         <label for="cvc">CVC</label>
-                        <input id="cvc" name="cvc" type="number" placeholder="CVC" required>
                     </div>
                 </div>
+
+                <div class="underline"></div>
+
                 <div class="total">
                     <span>Total Amount:</span>
                     <span id="total-amount-modal">₱100</span>
                 </div>
-                <button type="submit">Pay</button>
+                <button type="submit" class="pay-button">Pay</button>
             </form>
         </div>
     </div>
