@@ -45,6 +45,10 @@ main {
     gap: 20px;
 }
 
+img.brand-logo {
+    width: 100px;
+}
+
 /* ================= CART SECTION ================= */
 .cart-items {
     background: var(--color-white);
@@ -63,7 +67,7 @@ main {
     gap: 8px;
 }
 
-/* ================= CART LIST ================= */
+/* ================= CART LIST ================= */ 
 #cartContainer {
     list-style: none;
     padding: 0;
