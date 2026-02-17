@@ -123,9 +123,13 @@ function initHamburgerMenu() {
  * Author: Kerzania
  * Last Updated by: Kerzania
  */
-function showNotification(title, message, type, onClose) {
+function showNotification(title, message, type, onClose, options) {
     // Default type to "success" if not provided
     type = type || "success";
+    options = options || {};
+    const showCancel = Boolean(options.showCancel);
+    const confirmText = options.confirmText || "OK";
+    const cancelText = options.cancelText || "Cancel";
 
     // Map type to icon class and CSS modifier
     var iconMap = {
@@ -148,6 +152,23 @@ function showNotification(title, message, type, onClose) {
     const content = document.createElement("div");
     content.className = "notification-content notification-" + type;
 
+    function closeNotification(shouldRunCallback) {
+        overlay.remove();
+        if (shouldRunCallback && typeof onClose === "function") {
+            onClose();
+        }
+    }
+
+    // Close button
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "notification-close-btn";
+    closeBtn.type = "button";
+    closeBtn.setAttribute("aria-label", "Close notification");
+    closeBtn.innerHTML = "&times;";
+    closeBtn.addEventListener("click", function () {
+        closeNotification(!showCancel);
+    });
+
     // Icon
     const icon = document.createElement("div");
     icon.className = "notification-icon";
@@ -166,18 +187,36 @@ function showNotification(title, message, type, onClose) {
     // OK button
     const btn = document.createElement("button");
     btn.className = "notification-btn";
-    btn.textContent = "OK";
+    btn.textContent = confirmText;
     btn.addEventListener("click", function () {
-        overlay.remove();
-        if (typeof onClose === "function") {
-            onClose();
-        }
+        closeNotification(true);
     });
 
+    const actions = document.createElement("div");
+    actions.className = "notification-actions";
+
+    if (showCancel) {
+        const cancelBtn = document.createElement("button");
+        cancelBtn.className = "notification-btn notification-btn-secondary";
+        cancelBtn.type = "button";
+        cancelBtn.textContent = cancelText;
+        cancelBtn.addEventListener("click", function () {
+            overlay.remove();
+            if (typeof options.onCancel === "function") {
+                options.onCancel();
+            }
+        });
+
+        actions.appendChild(cancelBtn);
+    }
+
+    actions.appendChild(btn);
+
+    content.appendChild(closeBtn);
     content.appendChild(icon);
     content.appendChild(heading);
     content.appendChild(text);
-    content.appendChild(btn);
+    content.appendChild(actions);
     overlay.appendChild(content);
     document.body.appendChild(overlay);
 }
@@ -210,12 +249,12 @@ function loadModals() {
                 <form id="signup-form">
                     <div class="row">
                         <div class="input-group">
-                            <input id="first-name" name="first-name" type="text" required>
+                            <input id="first-name" name="first-name" type="text">
                             <label for="first-name">First Name</label>
                             <small class="error"></small>
                         </div>
                         <div class="input-group">
-                            <input id="last-name" name="last-name" type="text" required>
+                            <input id="last-name" name="last-name" type="text">
                             <label for="last-name">Last Name</label>
                             <small class="error"></small>
                         </div>
@@ -223,18 +262,18 @@ function loadModals() {
 
                     <div class="column">
                         <div class="input-group">
-                            <input id="email" name="email" type="email" required>
+                            <input id="email" name="email" type="email" >
                             <label for="email">Email</label>
                             <small class="error"></small>
                         </div>
                         <div class="input-group">
-                            <input id="password" name="password" type="password" required>
+                            <input id="password" name="password" type="password" >
                             <label for="password">Password</label>
                             <button type="button" class="toggle-password" data-target="password">Show</button>
                             <small class="error"></small>
                         </div>
                         <div class="input-group">
-                            <input id="confirm-password" name="confirm-password" type="password" required>
+                            <input id="confirm-password" name="confirm-password" type="password" >
                             <label for="confirm-password">Confirm Password</label>
                             <button type="button" class="toggle-password" data-target="confirm-password">Show</button>
                             <small class="error"></small>
@@ -261,13 +300,13 @@ function loadModals() {
 
                 <form id="login-form">
                     <div class="input-group">
-                        <input type="email" id="login-email" name="email" required>
+                        <input type="email" id="login-email" name="email">
                         <label for="login-email">Email</label>
                         <small class="error"></small>
                     </div>
 
                     <div class="input-group">
-                        <input type="password" id="login-password" name="password" required>
+                        <input type="password" id="login-password" name="password">
                         <label for="login-password">Password</label>
                         <button type="button" class="toggle-password" data-target="login-password">Show</button>
                         <small class="error"></small>

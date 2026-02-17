@@ -145,6 +145,24 @@ img.side-image-sign {
     color: #5A3D2B;
 }
 
+#signup-container .input-group .error {
+    display: block;
+    min-height: 16px;
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #B42318;
+    visibility: hidden;
+}
+
+#signup-container .input-group .error.show {
+    visibility: visible;
+}
+
+#signup-container .input-group.has-error input {
+    border-color: #B42318;
+}
+
 .underline {
     margin: 1em 0;
     border: 1px solid rgb(222, 222, 222);
@@ -175,7 +193,7 @@ img.side-image-sign {
 
 input#last-name,
 input#first-name {
-    width: 92%;
+    width: 100%;
 }
 
 /* Responsive Design */

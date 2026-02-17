@@ -375,7 +375,7 @@ body.modal-open {
     overflow: hidden;
 }
 
-body.modal-open> :not(#signup-modal-container):not(#login-modal-container):not(#check-out-modal-container) {
+body.modal-open> :not(#signup-modal-container):not(#login-modal-container):not(#check-out-modal-container):not(#notification-modal) {
     filter: blur(3px);
     transition: filter 0.2s ease;
 }
@@ -390,6 +390,12 @@ body.modal-open> :not(#signup-modal-container):not(#login-modal-container):not(#
     border: none;
     cursor: pointer;
     color: inherit;
+}
+
+#signup-container .input-group .toggle-password,
+#login-container .input-group .toggle-password {
+    top: 16px;
+    transform: none;
 }
 
 /* ============= SEARCH RESULTS DROPDOWN ============= */
@@ -475,6 +481,7 @@ body.modal-open> :not(#signup-modal-container):not(#login-modal-container):not(#
 }
 
 .notification-content {
+    position: relative;
     background: #FBF6F0;
     padding: 20px;
     border-radius: 8px;
@@ -482,6 +489,22 @@ body.modal-open> :not(#signup-modal-container):not(#login-modal-container):not(#
     max-width: 300px;
     border: 1px solid #d9b7a0;
     box-shadow: 0 10px 24px rgba(90, 61, 43, 0.18);
+}
+
+.notification-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    color: #7F5539;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.notification-close-btn:hover {
+    color: #5A3D2B;
 }
 
 .notification-icon {
@@ -500,6 +523,12 @@ body.modal-open> :not(#signup-modal-container):not(#login-modal-container):not(#
     color: #6F4E37;
 }
 
+.notification-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 .notification-btn {
     background: #5A3D2B;
     color: #fff;
@@ -513,6 +542,16 @@ body.modal-open> :not(#signup-modal-container):not(#login-modal-container):not(#
 
 .notification-btn:hover {
     background: #7F5539;
+}
+
+.notification-btn-secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #CBB5A4;
+}
+
+.notification-btn-secondary:hover {
+    background: #f0e5db;
 }
 
 /* Warning type */

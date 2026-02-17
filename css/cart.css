@@ -19,14 +19,13 @@ body.modal-open > :not(#check-out-modal-container):not(#signup-modal-container):
 /* ================= MAIN CONTENT ================= */
 main {
     margin: 30px 0;
-    padding: 0 40px;
+    padding: 0 24px;
 }
 
 /* ================= CHECKOUT LAYOUT ================= */
 .checkout-layout {
     display: flex;
     gap: 24px;
-
     align-items: flex-start;
 }
 
@@ -169,6 +168,15 @@ img.brand-logo {
     color: var(--color-white);
 }
 
+.cart-qty button:disabled,
+.cart-qty button:disabled:hover {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: var(--color-white);
+    border-color: var(--color-tan);
+    color: var(--color-espresso);
+}
+
 .cart-qty-value {
     width: 32px;
     padding: 2px;
@@ -294,6 +302,11 @@ img.brand-logo {
 .shipping input:focus {
     border-color: var(--color-coffee);
     box-shadow: 0 0 0 3px rgba(111, 78, 55, 0.08);
+}
+
+.shipping input:invalid:not(:placeholder-shown) {
+    border-color: #d9534f;
+    background-color: #fff5f5;
 }
 
 /* ================= ORDER SUMMARY ================= */

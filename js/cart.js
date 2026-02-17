@@ -18,10 +18,50 @@ const modalContainer = document.getElementById('check-out-modal-container');
 const modalCloseBtn = modalContainer.querySelector('.close-btn');
 
 const paymentForm = document.getElementById('paymentForm');
+const shippingInfoForm = document.getElementById('shippingForm');
 const payBtn = document.getElementById('pay-button');
 const notification = document.getElementById('notification');
+const cardNameInput = document.getElementById('card-name');
+const cardNumberInput = document.getElementById('card-number');
+const expirationInput = document.getElementById('expiration');
+const cvcInput = document.getElementById('cvc');
 
 const SHIPPING_FEE = 49;
+
+if (shippingInfoForm) {
+    const shippingNumberInputs = shippingInfoForm.querySelectorAll('input[type="number"]');
+    const zipInput = shippingInfoForm.querySelector('input[name="zip"]');
+
+    shippingNumberInputs.forEach(input => {
+        input.setAttribute('min', '0');
+
+        input.addEventListener('keydown', function (e) {
+            if (e.key === '-' || e.key === 'Minus') {
+                e.preventDefault();
+            }
+        });
+
+        input.addEventListener('input', function () {
+            const value = Number(this.value);
+
+            if (this.value !== '' && value < 0) {
+                this.value = '0';
+            }
+        });
+    });
+
+    if (zipInput) {
+        zipInput.addEventListener('keydown', function (e) {
+            if (['e', 'E', '+', '-', '.', ','].includes(e.key)) {
+                e.preventDefault();
+            }
+        });
+
+        zipInput.addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g, '');
+        });
+    }
+}
 
 
 /*  
@@ -38,6 +78,188 @@ function numberToCurrency(num) {
     return `₱${num.toFixed(2)}`;
 }
 
+function digitsOnly(value) {
+    return value.replace(/\D/g, '');
+}
+
+function formatCardNumber(value) {
+    const digits = digitsOnly(value).slice(0, 16);
+    return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+}
+
+function formatExpiration(value) {
+    const digits = digitsOnly(value).slice(0, 4);
+    if (digits.length <= 2) return digits;
+    return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+}
+
+function luhnCheck(cardDigits) {
+    let sum = 0;
+    let shouldDouble = false;
+
+    for (let i = cardDigits.length - 1; i >= 0; i -= 1) {
+        let digit = parseInt(cardDigits.charAt(i), 10);
+        if (shouldDouble) {
+            digit *= 2;
+            if (digit > 9) digit -= 9;
+        }
+
+        sum += digit;
+        shouldDouble = !shouldDouble;
+    }
+
+    return sum % 10 === 0;
+}
+
+function validateCardName() {
+    if (!cardNameInput) return true;
+
+    const value = cardNameInput.value.trim();
+    cardNameInput.setCustomValidity('');
+
+    if (!value) {
+        cardNameInput.setCustomValidity('Card name is required.');
+        return false;
+    }
+
+    if (!/^[A-Za-z][A-Za-z .'-]{1,49}$/.test(value)) {
+        cardNameInput.setCustomValidity('Enter a valid card name.');
+        return false;
+    }
+
+    return true;
+}
+
+function validateCardNumber() {
+    if (!cardNumberInput) return true;
+
+    const digits = digitsOnly(cardNumberInput.value);
+    cardNumberInput.setCustomValidity('');
+
+    if (!digits) {
+        cardNumberInput.setCustomValidity('Card number is required.');
+        return false;
+    }
+
+    if (digits.length !== 16) {
+        cardNumberInput.setCustomValidity('Card number must be 16 digits.');
+        return false;
+    }
+
+    if (!luhnCheck(digits)) {
+        cardNumberInput.setCustomValidity('Enter a valid card number.');
+        return false;
+    }
+
+    return true;
+}
+
+function validateExpiration() {
+    if (!expirationInput) return true;
+
+    const value = expirationInput.value.trim();
+    expirationInput.setCustomValidity('');
+
+    if (!value) {
+        expirationInput.setCustomValidity('Expiration date is required.');
+        return false;
+    }
+
+    const match = value.match(/^(0[1-9]|1[0-2])\/(\d{2})$/);
+    if (!match) {
+        expirationInput.setCustomValidity('Use MM/YY format.');
+        return false;
+    }
+
+    const month = parseInt(match[1], 10);
+    const year = 2000 + parseInt(match[2], 10);
+
+    const now = new Date();
+    const currentMonth = now.getMonth() + 1;
+    const currentYear = now.getFullYear();
+
+    if (year < currentYear || (year === currentYear && month < currentMonth)) {
+        expirationInput.setCustomValidity('Card is expired.');
+        return false;
+    }
+
+    return true;
+}
+
+function validateCvc() {
+    if (!cvcInput) return true;
+
+    const digits = digitsOnly(cvcInput.value);
+    cvcInput.setCustomValidity('');
+
+    if (!digits) {
+        cvcInput.setCustomValidity('CVC is required.');
+        return false;
+    }
+
+    if (!/^\d{3,4}$/.test(digits)) {
+        cvcInput.setCustomValidity('CVC must be 3 or 4 digits.');
+        return false;
+    }
+
+    return true;
+}
+
+function validatePaymentForm() {
+    const validators = [
+        { input: cardNameInput, validate: validateCardName },
+        { input: cardNumberInput, validate: validateCardNumber },
+        { input: expirationInput, validate: validateExpiration },
+        { input: cvcInput, validate: validateCvc }
+    ];
+
+    let isValid = true;
+
+    validators.forEach(({ input, validate }) => {
+        const currentValid = validate();
+        if (!currentValid && isValid && input) {
+            input.reportValidity();
+        }
+        isValid = currentValid && isValid;
+    });
+
+    return isValid;
+}
+
+if (cardNumberInput) {
+    cardNumberInput.addEventListener('input', function () {
+        this.value = formatCardNumber(this.value);
+        validateCardNumber();
+    });
+}
+
+if (expirationInput) {
+    expirationInput.addEventListener('input', function () {
+        this.value = formatExpiration(this.value);
+        validateExpiration();
+    });
+}
+
+if (cvcInput) {
+    cvcInput.addEventListener('input', function () {
+        this.value = digitsOnly(this.value).slice(0, 4);
+        validateCvc();
+    });
+}
+
+if (cardNameInput) {
+    cardNameInput.addEventListener('input', function () {
+        validateCardName();
+    });
+}
+
+[cardNameInput, cardNumberInput, expirationInput, cvcInput].forEach((input) => {
+    if (!input) return;
+    input.addEventListener('blur', function () {
+        validatePaymentForm();
+    });
+});
+
 // cart logic
 function loadCart() {
     const cart = getCartFromStorage();
@@ -50,6 +272,8 @@ function loadCart() {
     }
 
     cart.forEach((item, index) => {
+        const safeQty = Math.max(1, parseInt(item.quantity) || 1);
+
         const li = document.createElement('li');
         li.className = 'cart-item';
         li.dataset.index = index;
@@ -62,13 +286,13 @@ function loadCart() {
             </div>
             <div class="cart-qty">
                 <label>Quantity</label>
-                <button type="button" class="qty-btn-minus">-</button>
-                <input type="text" class="cart-qty-value" value="${item.quantity}" readonly>
+                <button type="button" class="qty-btn-minus" ${safeQty <= 1 ? 'disabled' : ''}>-</button>
+                <input type="text" class="cart-qty-value" value="${safeQty}" readonly>
                 <button type="button" class="qty-btn-plus">+</button>
             </div>
             <div class="cart-item-total">
                 <label>Total</label>
-                <span>₱${(item.price * item.quantity).toFixed(2)}</span>
+                <span>₱${(item.price * safeQty).toFixed(2)}</span>
             </div>
             <button type="button" class="cart-remove-btn">&times;</button>
         `;
@@ -78,18 +302,22 @@ function loadCart() {
     updateOrderSummary();
 }
 
-function updateCartStorage(index, newQty) {
+function updateCartStorage(index, newQty, allowRemove) {
+    allowRemove = Boolean(allowRemove);
     const cart = getCartFromStorage();
+
     if (index >= 0 && index < cart.length) {
-        if (newQty <= 0) {
+        if (allowRemove && newQty <= 0) {
             cart.splice(index, 1);
         } else {
-            cart[index].quantity = newQty;
+            cart[index].quantity = Math.max(1, parseInt(newQty) || 1);
         }
+
         setCartToStorage(cart);
     }
+
     updateCartCountBadge();
-    loadCart();adasd
+    loadCart();
 }
 
 function updateOrderSummary() {
@@ -112,10 +340,11 @@ function updateOrderSummary() {
         subtotal += price * qty;
     });
 
-    const total = subtotal + SHIPPING_FEE;
+    const appliedShippingFee = itemCount >= 1 ? SHIPPING_FEE : 0;
+    const total = subtotal + appliedShippingFee;
 
     if (itemCountEl) itemCountEl.textContent = itemCount;
-    if (shippingFeeEl) shippingFeeEl.textContent = numberToCurrency(SHIPPING_FEE);
+    if (shippingFeeEl) shippingFeeEl.textContent = numberToCurrency(appliedShippingFee);
     if (totalAmountCart) totalAmountCart.textContent = numberToCurrency(subtotal);
     if (totalAmountModal) totalAmountModal.textContent = numberToCurrency(total);
     if (totalAmountEl) totalAmountEl.textContent = numberToCurrency(total);
@@ -132,13 +361,26 @@ cartContainer.addEventListener('click', e => {
     let qty = parseInt(qtyEl.value) || 1;
 
     if (e.target.classList.contains('qty-btn-minus') || e.target.textContent === "-" || e.target.textContent === "−") {
+        if (qty <= 1) return;
         updateCartStorage(index, qty - 1);
     } 
     else if (e.target.classList.contains('qty-btn-plus') || e.target.textContent === "+") {
         updateCartStorage(index, qty + 1);
     } 
     else if (e.target.classList.contains('cart-remove-btn') || e.target.textContent === "×") { // &times; is ×
-        updateCartStorage(index, 0); // 0 quantity triggers removal
+        showNotification(
+            "Remove Item",
+            "Are you sure you want to remove this item from your cart?",
+            "warning",
+            function () {
+                updateCartStorage(index, 0, true); // explicit removal
+            },
+            {
+                showCancel: true,
+                confirmText: "Remove",
+                cancelText: "Cancel"
+            }
+        );
     }
 });
 
@@ -156,7 +398,11 @@ searchInput.addEventListener('input', e => {
 //payment notif success
 if (paymentForm) {
     paymentForm.addEventListener('submit', function(e) {
-        e.preventDefault(); 
+        e.preventDefault();
+
+        if (!validatePaymentForm()) {
+            return;
+        }
 
         modalContainer.style.display = 'none';
         document.body.classList.remove('modal-open');       

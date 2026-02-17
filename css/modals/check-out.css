@@ -101,7 +101,11 @@
     border-color: #6c63ff;
 }
 
-/* Expiration & CVC side by side */
+#check-out-container input:invalid:not(:placeholder-shown) {
+    border-color: #d9534f;
+    background-color: #fff5f5;
+}
+
 .row {
     display: flex;
     gap: 10px;
@@ -114,9 +118,7 @@
 .total {
     display: flex;
     flex-direction: column;
-    /* stack label and number */
     align-items: flex-end;
-    /* push number to the right */
     padding: 12px 0;
     font-size: 0.95rem;
     font-weight: 700;
@@ -125,7 +127,6 @@
 
 .total span:last-child {
     color: #6c63ff;
-    /* amount color */
     font-weight: 700;
 }
 

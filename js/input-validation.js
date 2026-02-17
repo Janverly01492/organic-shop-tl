@@ -42,7 +42,15 @@ function getErrorElement(input) {
  */
 function showError(input, message) {
     const error = getErrorElement(input);
-    if (error) error.textContent = message;
+    const inputGroup = input.closest(".input-group");
+
+    if (error) {
+        error.textContent = message;
+        error.classList.add("show");
+    }
+
+    if (inputGroup) inputGroup.classList.add("has-error");
+    input.classList.add("is-invalid");
     return false;
 }
 
@@ -57,7 +65,15 @@ function showError(input, message) {
  */
 function clearError(input) {
     const error = getErrorElement(input);
-    if (error) error.textContent = "";
+    const inputGroup = input.closest(".input-group");
+
+    if (error) {
+        error.textContent = "";
+        error.classList.remove("show");
+    }
+
+    if (inputGroup) inputGroup.classList.remove("has-error");
+    input.classList.remove("is-invalid");
     return true;
 }
 
@@ -79,6 +95,17 @@ function validateEmail(emailInput) {
     return clearError(emailInput);
 }
 
+/*
+ * DOCU: Validates that a required input is not empty.
+ * @param {HTMLElement} input - The input element to validate.
+ * @param {string} message - The message to display if empty.
+ * @returns {boolean} - Returns true if valid, false otherwise.
+ */
+function validateRequired(input, message) {
+    if (input.value.trim() === "") return showError(input, message);
+    return clearError(input);
+}
+
 /*  
  * DOCU: Validates a password input field.
  * @param {HTMLElement} passwordInput - The password input element to validate.
@@ -91,6 +118,10 @@ function validateEmail(emailInput) {
 function validatePassword(passwordInput) {
     const value = passwordInput.value;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
+
+    if (value.trim() === "") {
+        return showError(passwordInput, "Password is required");
+    }
 
     if (value.length < 6) {
         return showError(passwordInput, "Password must be at least 6 characters");
@@ -176,11 +207,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let isValid = true;
 
-            isValid = firstName.value.trim() ? clearError(firstName) && isValid : showError(firstName, "First name is required") && isValid;
-            isValid = lastName.value.trim() ? clearError(lastName) && isValid : showError(lastName, "Last name is required") && isValid;
+            isValid = validateRequired(firstName, "First name is required") && isValid;
+            isValid = validateRequired(lastName, "Last name is required") && isValid;
             isValid = validateEmail(email) && isValid;
             isValid = validatePassword(password) && isValid;
-            isValid = confirmPassword.value === password.value ? clearError(confirmPassword) && isValid : showError(confirmPassword, "Passwords do not match") && isValid;
+            isValid = validateRequired(confirmPassword, "Confirm password is required") && isValid;
+
+            if (confirmPassword.value.trim() !== "" && password.value.trim() !== "") {
+                isValid = confirmPassword.value === password.value ? clearError(confirmPassword) && isValid : showError(confirmPassword, "Passwords do not match") && isValid;
+            }
 
             if (!isValid) return;
 

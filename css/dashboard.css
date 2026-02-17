@@ -125,6 +125,17 @@ main {
     gap: 18px;
 }
 
+.search-empty-state {
+    grid-column: 1 / -1;
+    margin: 8px 0;
+    padding: 14px 16px;
+    border: 1px solid #ead8c8;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #6F4E37;
+    font-weight: 600;
+}
+
 /* Card style closer to image 1 */
 .product-card {
     background: rgba(255, 255, 255, 0.9);

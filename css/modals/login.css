@@ -152,6 +152,24 @@
     background-color: #F5F0EB;
 }
 
+#login-container .input-group .error {
+    display: block;
+    min-height: 16px;
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #B42318;
+    visibility: hidden;
+}
+
+#login-container .input-group .error.show {
+    visibility: visible;
+}
+
+#login-container .input-group.has-error input {
+    border-color: #B42318;
+}
+
 
 .underline {
     margin: 1em 0;
