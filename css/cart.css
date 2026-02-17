@@ -45,6 +45,16 @@ main {
     gap: 20px;
 }
 
+img.brand-logo {
+    width: 100px;
+}
+
+.logo-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
 /* ================= CART SECTION ================= */
 .cart-items {
     background: var(--color-white);
@@ -63,7 +73,7 @@ main {
     gap: 8px;
 }
 
-/* ================= CART LIST ================= */
+/* ================= CART LIST ================= */ 
 #cartContainer {
     list-style: none;
     padding: 0;
